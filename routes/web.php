@@ -11,6 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ShopController@index');
+
+Route::get('/contact', 'ShopController@getContact');
+
+Route::get('/blog', 'ShopController@getBlog');
+
+Route::get('/singleBlog', 'ShopController@getSingleBlog');
+
+Route::get('/login', 'ShopController@getLogin');
+
+Route::get('/tracking', 'ShopController@getTracking');
+
+Route::get('/elements', 'ShopController@getElements');
+
+Route::get('/category', 'ShopController@getCategory');
+
+Route::get('/product', 'ShopController@getProduct');
+
+Route::get('/checkout', 'ShopController@getCheckout');
+
+Route::get('/cart', 'ShopController@getCart');
+
+Route::get('/confirmation', 'ShopController@getConfirmation');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
