@@ -53,5 +53,6 @@ class ShopController extends Controller
     public function getConfirmation(){
         return view('confirmation');
     }
+    
 }
 

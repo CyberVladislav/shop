@@ -15,7 +15,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>Uncle's area</title>
 
     <!--
             CSS
@@ -54,7 +54,6 @@
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="{{ asset('category') }}">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ asset('product') }}">Product Details</a></li>
 									<li class="nav-item active"><a class="nav-link" href="{{ asset('checkout') }}">Product Checkout</a></li>
 									<li class="nav-item"><a class="nav-link" href="{{ asset('cart') }}">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="{{ asset('confirmation') }}">Confirmation</a></li>
