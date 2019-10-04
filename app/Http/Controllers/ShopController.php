@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Product;
+
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -35,12 +38,28 @@ class ShopController extends Controller
     } 
 
     public function getCategory(){
-        return view('category');
+        $products = Product::all();
+        
+        return view('category', [
+            'products' => $products,
+        ]);
     } 
 
-    public function getProduct(){
-        return view('product');
-    } 
+    // public function getProduct(){
+    //     $products = Product::all();
+
+    //     return view('product', [
+    //         'products' => $products,
+    //     ]);
+    // } 
+
+    public function productAction($id = null){
+        $product = Product::find($id);
+
+        return view('product', [
+            'product' => $product,
+        ]);
+    }
 
     public function getCheckout(){
         return view('checkout');
@@ -53,6 +72,5 @@ class ShopController extends Controller
     public function getConfirmation(){
         return view('confirmation');
     }
-    
+ 
 }
-

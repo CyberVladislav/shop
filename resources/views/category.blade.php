@@ -303,12 +303,12 @@
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row">
 						<!-- single product -->
+						@foreach($products as $product)
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="img/product/p1.jpg" alt="">
+								<img class="img-fluid" src = "{{$product->image}}" alt="">
 								<div class="product-details" >
-										<h6>addidas New Hammer sole
-										for Sports person</h6>
+										<h6><a href="{{asset('product/'.$product->id)}}">{{$product->name}}</a></h6>
 									<div class="price">
 										<h6>$150.00</h6>
 										<h6 class="l-through">$210.00</h6>
@@ -335,6 +335,7 @@
 								</div>
 							</div>
 						</div>
+						@endforeach
 						<!-- single product -->
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">

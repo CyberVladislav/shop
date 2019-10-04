@@ -27,7 +27,9 @@ Route::get('/elements', 'ShopController@getElements');
 
 Route::get('/category', 'ShopController@getCategory');
 
-Route::get('/product', 'ShopController@getProduct');
+// Route::get('/product', 'ShopController@getProduct');
+
+Route::get('/product/{productId}', 'ShopController@productAction');
 
 Route::get('/checkout', 'ShopController@getCheckout');
 
@@ -37,3 +39,4 @@ Route::get('/confirmation', 'ShopController@getConfirmation');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
