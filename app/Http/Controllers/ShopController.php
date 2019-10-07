@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ShopController extends Controller
 {
     public function index(){
-        return view('welcome');
+        return view('main');
     }
 
     public function getContact(){
@@ -38,27 +38,24 @@ class ShopController extends Controller
     } 
 
     public function getCategory(){
-        $products = Product::all();
-        
-        return view('category', [
-            'products' => $products,
-        ]);
+        $products = Product::paginate(6);
+        $categories = Category::all();
+
+        return view('category', ['products' => $products, 'categories' => $categories ]);
     } 
+    
+    public function choosenCategory($categoryId = null){
+        $products = Product::where ('category_id', '2')->paginate(6);
+        $categories = Category::all();
 
-    // public function getProduct(){
-    //     $products = Product::all();
+        return view('category', ['products' => $products, 'categories' => $categories ]);
+    }
 
-    //     return view('product', [
-    //         'products' => $products,
-    //     ]);
-    // } 
 
     public function productAction($id = null){
         $product = Product::find($id);
 
-        return view('product', [
-            'product' => $product,
-        ]);
+        return view('product', ['product' => $product ]);
     }
 
     public function getCheckout(){
