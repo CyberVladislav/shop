@@ -15,10 +15,10 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1,10) as $index) {
+        foreach (range(1,12) as $index) {
         DB::table('products')->insert([
         'name' => $faker->name,
-        'price' => $faker->numberBetween($min = 1000, $max = 9000), 
+        'price' => $faker->numberBetween($min = 100, $max = 900), 
         'category_id'=> $faker->numberBetween(1,8),
         'image' => $faker->imageUrl($width = 640, $height = 480),
         'brand' => $faker->jobTitle,

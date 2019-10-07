@@ -27,7 +27,7 @@ Route::get('/elements', 'ShopController@getElements');
 
 Route::get('/category', 'ShopController@getCategory');
 
-// Route::get('/product', 'ShopController@getProduct');
+Route::get ('/category/{categoryId}', 'ShopController@choosenCategory');
 
 Route::get('/product/{productId}', 'ShopController@productAction');
 
