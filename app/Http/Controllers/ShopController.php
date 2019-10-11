@@ -38,15 +38,16 @@ class ShopController extends Controller
     } 
 
     public function getCategory(){
-        $products = Product::paginate(6);
+        $products = Product::paginate(12);
         $categories = Category::all();
 
         return view('category', ['products' => $products, 'categories' => $categories ]);
     } 
     
     public function choosenCategory($categoryId = null){
-        $products = Product::where ('category_id', '2')->paginate(6);
         $categories = Category::all();
+        $products = Product::where ('category_id', $categoryId)->paginate(12);
+       
 
         return view('category', ['products' => $products, 'categories' => $categories ]);
     }
