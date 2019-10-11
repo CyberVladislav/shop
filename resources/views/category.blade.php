@@ -1,5 +1,8 @@
 @extends('welcome')
 @section('content')
+
+<body id="category">
+
 	<section class="banner-area organic-breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -8,7 +11,7 @@
 					<nav class="d-flex align-items-center">
 						<a href="{{ asset('/') }}">Home<span class="lnr lnr-arrow-right"></span></a>
 						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{ asset('category') }}">Fashon Category</a>
+						<a href="{{ asset('category') }}">Fashion Category</a>
 					</nav>
 				</div>
 			</div>
@@ -84,15 +87,15 @@
 					</div>
 					<div class="sorting mr-auto">
 						<select>
-							<option value="1">Show 12</option>
+							<option id="show" value="1">Show 12</option>
 							<option value="1">Show 24</option>
 							<option value="1">Show 36</option>
 						</select>
 					</div>
-					<div class="pagination">
+					<!-- <div class="pagination"> -->
 					{{ $products->links() }}
 						
-					</div>
+					<!-- </div> -->
 				</div>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
@@ -144,16 +147,7 @@
 							<option value="1">Show 36</option>
 						</select>
 					</div>
-					<div class="pagination">
-					hui
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
-						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-					</div>
+					{{ $products->links() }}
 				</div>
 				<!-- End Filter Bar -->
 			</div>
