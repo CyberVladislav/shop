@@ -41,7 +41,10 @@ class ShopController extends Controller
         $products = Product::paginate(12);
         $categories = Category::all();
 
-        return view('category', ['products' => $products, 'categories' => $categories ]);
+        return view('category', [
+            'products' => $products,
+            'categories' => $categories
+            ]);
     } 
     
     public function choosenCategory($categoryId = null){
@@ -49,14 +52,19 @@ class ShopController extends Controller
         $products = Product::where ('category_id', $categoryId)->paginate(12);
        
 
-        return view('category', ['products' => $products, 'categories' => $categories ]);
+        return view('category', [
+            'products' => $products, 
+            'categories' => $categories 
+            ]);
     }
 
 
     public function productAction($id = null){
         $product = Product::find($id);
 
-        return view('product', ['product' => $product ]);
+        return view('product', [
+            'product' => $product 
+            ]);
     }
 
     public function getCheckout(){
