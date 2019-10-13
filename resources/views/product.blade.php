@@ -203,83 +203,49 @@
 								<div class="col-6">
 									<div class="box_total">
 										<h5>Overall</h5>
-										<h4>4.0</h4>
-										<h6>(03 Reviews)</h6>
+										<h4>{{$avg}}</h4>
+										<h6>({{$count}} Reviews)</h6>
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="rating_list">
-										<h3>Based on 3 Reviews</h3>
+										<h3>Based on {{$count}} Reviews</h3>
 										<ul class="list">
-											<li><a  href="{{asset('#')}}">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a  href="{{asset('#')}}">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a  href="{{asset('#')}}">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a  href="{{asset('#')}}">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-											<li><a  href="{{asset('#')}}">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+											<li>5 Star <i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i><i
+													 class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i> {{$five}}</li>
+											<li>4 Star <i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i><i
+													 class="fa fa-star color-yellow"></i> {{$four}}</li>
+											<li>3 Star <i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i> {{$three}}</li>
+											<li>2 Star <i class="fa fa-star color-yellow"></i><i class="fa fa-star color-yellow"></i> {{$two}}</li>
+											<li>1 Star <i class="fa fa-star color-yellow"></i> {{$one}}</li>
 										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="review_list">
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-1.png')}}" alt="">
+								@foreach($feedbacks as $feedback)
+									<div class="review_item">
+										<div class="media">
+											<div class="d-flex">
+												<img src="{{asset('img/product/review-1.png')}}" alt="">
+
+												<!-- INCLUDE THE USER IMAGE FROM DATABASE -->
+												<!-- <img src="{{$feedback->user->image}}" alt=""> -->
+
+											</div>
+											<div class="media-body">
+												<h4>{{$feedback->user->name}}</h4>
+												<h5>{{$feedback->created_at}}</h5>
+
+												@while ($feedback->rating-- > 0)
+												<i class="fa fa-star"></i>
+												@endwhile
+
+											</div>
 										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
+										<p>{{$feedback->desc}}</p>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-2.png')}}" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-3.png')}}" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+								@endforeach
 							</div>
 						</div>
 						<div class="col-lg-6">

@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="{{asset('css/ion.rangeSlider.css')}}" />
 	<link rel="stylesheet" href="{{asset('css/ion.rangeSlider.skinFlat.css')}}" />
 	<link rel="stylesheet" href="{{asset('css/main.css')}}">
+	<link rel="stylesheet" href="{{asset('css/generalStyles.css')}}">
 </head>
 
 <body>
@@ -40,7 +41,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="{{ asset('/') }}"><img src="img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="{{ asset('/') }}"><img src="{{asset('img/logo.png')}}" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
