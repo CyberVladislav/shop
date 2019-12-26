@@ -9,7 +9,7 @@
 					<h1>Contact Us</h1>
 					<nav class="d-flex align-items-center">
 						<a href="{{ asset('/') }}">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{ asset('category') }}">Contact</a>
+						<a href="{{ asset('contact') }}">Contact</a>
 					</nav>
 				</div>
 			</div>
@@ -21,8 +21,10 @@
 	@foreach($contacts as $contact)
 	<section class="contact_area section_gap_bottom">
 		<div class="container">
-			<div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13" data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
-			 data-mlat="40.701083" data-mlon="-74.1522848">
+			<!-- <div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13" data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
+			 data-mlat="40.701083" data-mlon="-74.1522848"> -->
+			<div class="mapBox">
+			 	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2350.646524500923!2d27.482420536519875!3d53.902486354739416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbc54ac3455555%3A0x66b2f64e50fbade8!2z0JHQsNCy0LDRgNC40Y8!5e0!3m2!1sru!2sby!4v1571382364695!5m2!1sru!2sby" width="1100" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 			</div>
 			<div class="row">
 				<div class="col-lg-3">

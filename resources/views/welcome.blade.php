@@ -52,16 +52,7 @@
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{{ asset('category') }}">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ asset('checkout') }}">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ asset('cart') }}">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ asset('confirmation') }}">Confirmation</a></li>
-								</ul>
-							</li>
+							<li class="nav-item"><a class="nav-link" href="{{ asset('category') }}">Shop</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
@@ -79,10 +70,9 @@
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
-							
 
 							@if (Auth::check())
-							<!-- <li class="nav-item"><a class="nav-link" href="{{ asset('login') }}">{{Auth::user()->name}}</a></li> -->
+							<li class="nav-item"><a class="nav-link" href="{{ asset('login') }}">{{Auth::user()->name}}</a></li>
 								<li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -98,7 +88,7 @@
 								
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -212,8 +202,8 @@
 	<script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
 	<script src="{{asset('js/owl.carousel.min.js')}}"></script>
 	<!--gmaps Js-->
-	<script src="{{asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE')}}"></script>
-	<script src="{{asset('js/gmaps.min.js')}}"></script>
+	<!-- <script src="{{asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE')}}"></script>
+	<script src="{{asset('js/gmaps.min.js')}}"></script> -->
 	<script src="{{asset('js/main.js')}}"></script>
 </body>
 

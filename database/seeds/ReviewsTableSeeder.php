@@ -18,8 +18,9 @@ class ReviewsTableSeeder extends Seeder
         foreach (range(1,5) as $index) {
         DB::table('reviews')->insert([ 
         'user_id'=> $faker->numberBetween(1,3),
+        'parent_id'=> $faker->numberBetween(0,5),
         'rating' => $faker->numberBetween(1,5),
-        'desc' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+        'description' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
         ]);
         }   
     }

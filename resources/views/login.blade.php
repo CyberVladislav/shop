@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends ('welcome')
 @section('content')
 
 	<!-- Start Banner Area -->
@@ -9,7 +9,7 @@
 					<h1>Login/Register</h1>
 					<nav class="d-flex align-items-center">
 						<a href="{{ asset('/') }}">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{ asset('category') }}">Login/Register</a>
+						<a href="{{ asset('login') }}">Login/Register</a>
 					</nav>
 				</div>
 			</div>
