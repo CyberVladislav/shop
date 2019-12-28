@@ -22,6 +22,7 @@ class ProductsTableSeeder extends Seeder
         'category_id'=> $faker->numberBetween(1,8),
         'image' => $faker->imageUrl($width = 640, $height = 480),
         'brand' => $faker->jobTitle,
+        'IsProductOfWeek' => $faker->numberBetween(0, 1),
         'description' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
         'color' => $faker->safeColorName,
         'madeIn' => $faker->country,

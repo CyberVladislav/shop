@@ -38,5 +38,6 @@ Route::get('/cart', 'ShopController@getCart');
 Route::get('/confirmation', 'ShopController@getConfirmation');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/addReview', 'ShopController@getAddReview');
 
+Route::get('/home', 'HomeController@index')->name('home');

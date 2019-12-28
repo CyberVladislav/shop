@@ -10,8 +10,7 @@
 					<h1>Shop Category page</h1>
 					<nav class="d-flex align-items-center">
 						<a href="{{ asset('/') }}">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{ asset('category') }}">Fashion Category</a>
+						<a href="{{ asset('category')}}">Shop</a>
 					</nav>
 				</div>
 			</div>
@@ -26,7 +25,7 @@
 					<ul class="main-categories">
 						@foreach($categories as $category)
 						<li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-								 class="lnr lnr-arrow-right"></span><a href="{{asset('category/'.$category->id)}}">{{$category->name}}<span class="number">(53)</span></a>
+								 class="lnr lnr-arrow-right"></span><a href="{{asset('category/'.$category->id)}}">{{$category->name}}<span class="number">({{$category->product_count}})</span></a>
 						</li>
 						@endforeach
 					</ul>
@@ -37,11 +36,9 @@
 						<div class="head">Brands</div>
 						<form action="#">
 							<ul>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+								@foreach ($brands as $brand)
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="{{$brand->brand}}" name="brand"><label for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
+								@endforeach
 							</ul>
 						</form>
 					</div>
@@ -49,13 +46,9 @@
 						<div class="head">Color</div>
 						<form action="#">
 							<ul>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Black
-										Leather<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Black
-										with red<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
+								@foreach ($colors as $color)
+								<li class="filter-list"><input class="pixel-radio" type="radio" id="{{$color->color}}" name="color"><label for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
+								@endforeach
 							</ul>
 						</form>
 					</div>

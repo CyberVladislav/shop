@@ -194,8 +194,8 @@
                                 </td>
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="#">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+                                        <a class="gray_btn" href="{{ asset('category')}}">Continue Shopping</a>
+                                        <a class="primary-btn" href="{{ asset('checkout')}}">Proceed to checkout</a>
                                     </div>
                                 </td>
                             </tr>

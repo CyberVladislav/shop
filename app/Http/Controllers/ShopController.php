@@ -7,6 +7,7 @@ use App\Product;
 use App\Contact;
 use App\Review;
 use App\User;
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -45,49 +46,55 @@ class ShopController extends Controller
     } 
 
     public function getCategory(){
+        $brands = Product::all();
+        $colors = Product::all();
         $products = Product::paginate(12);
-        $categories = Category::all();
+        $productCount = Category::withCount('product')->get();
+    
 
         return view('category', [
             'products' => $products,
-            'categories' => $categories
+            'categories' => $productCount,
+            'brands' => $brands,
+            'colors' => $colors,
             ]);
     } 
     
     public function choosenCategory($categoryId = null){
-        $categories = Category::all();
+        $brands = Product::all();
+        $colors = Product::all();
         $products = Product::where ('category_id', $categoryId)->paginate(12);
+        $productCount = Category::withCount('product')->get();
 
         return view('category', [
             'products' => $products, 
-            'categories' => $categories 
+            'brands' => $brands,
+            'colors' => $colors,
+            'categories' => $productCount,
             ]);
     }
 
-
     public function productAction($id = null){
         $product = Product::find($id);
-        $feedbacks = Review::all();
-        $count = Review::all()->count();
-        $avg = Review::all()->avg('rating');
+        $count = Review::where('rating','!=', '0') ->count();
+        $avg = Review::where('rating', '!=', '0')->avg('rating', 2);
         $five = Review::where('rating','=', '5')->count();
         $four = Review::where('rating','=', '4')->count();
         $three = Review::where('rating','=', '3')->count();
         $two = Review::where('rating','=', '2')->count();
         $one = Review::where('rating','=', '1')->count();
-        $zero = Review::where('rating','=', '0')->count();
+        $parentComment = Review::where('parent_id', '0')->get();
 
         return view('product', [
             'product' => $product,
-            'feedbacks' => $feedbacks,
             'count' => $count,
-            'avg' => $avg,
+            'avg' => round($avg,2),
             'five' =>$five,
             'four' =>$four,
             'three' =>$three,
             'two' =>$two,
             'one' =>$one,
-            'zero' =>$zero,
+            'parentComment' =>$parentComment,
             ]);
     }
 
@@ -99,8 +106,29 @@ class ShopController extends Controller
         return view('cart');
     }
 
+    public function getAddReview(Request $request)
+    {
+        // Validate the request...
+
+        $feedback = new Review;
+        if (Auth::check())
+        {
+        $feedback->user_id = Auth::user()->id;
+        $feedback->parent_id = '0';
+        }
+        else
+        $feedback->user_id = '8';
+        $feedback->parent_id = '0';
+        $feedback->rating = '0';    
+        $feedback->description = $request->message;
+
+        $feedback->save();
+
+        return back();
+    }
+
     public function getConfirmation(){
         return view('confirmation');
     }
- 
+
 }

@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('image');
             $table->string('brand');
+            $table->string('IsProductOfWeek');
             $table->string('description');
             $table->string('color');
             $table->string('madeIn');

@@ -1,4 +1,4 @@
-@extends('content')
+@extends('welcome')
 @section('content')
     <!-- Start Banner Area -->
     <section class="banner-area organic-breadcrumb">
@@ -8,7 +8,8 @@
                     <h1>Blog Page</h1>
                     <nav class="d-flex align-items-center">
                         <a href="{{ asset('/') }}">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="{{ asset('category') }}">Blog</a>
+                        <a href="{{ asset('blog') }}">Blog<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{ asset('singleBlog') }}">Blog details</a>
                     </nav>
                 </div>
             </div>
