@@ -46,11 +46,14 @@ class ShopController extends Controller
     } 
 
     public function getCategory(){
-        $brands = Product::all();
-        $colors = Product::all();
+        $brands = Product::select('brand')
+                            ->distinct()
+                            ->get();
+        $colors = Product::select('color')
+                            ->distinct()
+                            ->get();
         $products = Product::paginate(12);
         $productCount = Category::withCount('product')->get();
-    
 
         return view('category', [
             'products' => $products,
@@ -61,8 +64,12 @@ class ShopController extends Controller
     } 
     
     public function choosenCategory($categoryId = null){
-        $brands = Product::all();
-        $colors = Product::all();
+        $brands = Product::select('brand')
+                            ->distinct()
+                            ->get();
+        $colors = Product::select('color')
+                            ->distinct()
+                            ->get();
         $products = Product::where ('category_id', $categoryId)->paginate(12);
         $productCount = Category::withCount('product')->get();
 

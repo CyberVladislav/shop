@@ -31,25 +31,29 @@
 					</ul>
 				</div>
 				<div class="sidebar-filter mt-50">
-					<div class="top-filter-head">Product Filters</div>
+					<div class="top-filter-head">Product Filters</div>	
 					<div class="common-filter">
 						<div class="head">Brands</div>
 						<form action="#">
-							<ul>
-								@foreach ($brands as $brand)
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="{{$brand->brand}}" name="brand"><label for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
-								@endforeach
-							</ul>
+							<div class="scrollbar-brand-color">
+								<ul>
+									@foreach ($brands as $brand)
+									<li class="filter-list"><input class="pixel-radio" type="radio" id="{{$brand->brand}}" name="brand"><label for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
+									@endforeach
+								</ul>
+							</div>
 						</form>
 					</div>
 					<div class="common-filter">
 						<div class="head">Color</div>
 						<form action="#">
-							<ul>
-								@foreach ($colors as $color)
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="{{$color->color}}" name="color"><label for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
-								@endforeach
-							</ul>
+							<div class="scrollbar-brand-color">
+								<ul>
+									@foreach ($colors as $color)
+									<li class="filter-list"><input class="pixel-radio" type="radio" id="{{$color->color}}" name="color"><label for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
+									@endforeach
+								</ul>
+							</div>	
 						</form>
 					</div>
 					<div class="common-filter">

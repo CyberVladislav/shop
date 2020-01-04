@@ -1,3 +1,8 @@
 .color-yellow{
     color: #fbd600; 
 }
+
+.scrollbar-brand-color {
+    overflow: auto;
+    height: 333px;
+}
