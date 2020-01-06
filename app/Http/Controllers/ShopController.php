@@ -14,7 +14,13 @@ use Illuminate\Http\Request;
 class ShopController extends Controller
 {
     public function index(){
-        return view('main');
+        $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)
+                            ->get()
+                            ->random(9);
+
+        return view('main', [
+        'dealOfWeeks' => $dealOfWeeks
+            ]);
     }
 
     public function getContact(){
@@ -54,12 +60,16 @@ class ShopController extends Controller
                             ->get();
         $products = Product::paginate(12);
         $productCount = Category::withCount('product')->get();
+        $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)
+                            ->get()
+                            ->random(9);
 
         return view('category', [
             'products' => $products,
             'categories' => $productCount,
             'brands' => $brands,
             'colors' => $colors,
+            'dealOfWeeks' => $dealOfWeeks
             ]);
     } 
     
