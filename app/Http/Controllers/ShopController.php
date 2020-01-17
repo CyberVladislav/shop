@@ -82,12 +82,16 @@ class ShopController extends Controller
                             ->get();
         $products = Product::where ('category_id', $categoryId)->paginate(12);
         $productCount = Category::withCount('product')->get();
+        $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)
+                            ->get()
+                            ->random(9);
 
         return view('category', [
             'products' => $products, 
             'brands' => $brands,
             'colors' => $colors,
             'categories' => $productCount,
+            'dealOfWeeks' => $dealOfWeeks,
             ]);
     }
 
