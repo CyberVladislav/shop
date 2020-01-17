@@ -5,7 +5,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/fav.png">
+	<link rel="shortcut icon" href="{{asset('img/fav.png')}}">
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -157,14 +157,14 @@
 					<div class="single-footer-widget mail-chimp">
 						<h6 class="mb-20">Instragram Feed</h6>
 						<ul class="instafeed d-flex flex-wrap">
-							<li><img src="img/i1.jpg" alt=""></li>
-							<li><img src="img/i2.jpg" alt=""></li>
-							<li><img src="img/i3.jpg" alt=""></li>
-							<li><img src="img/i4.jpg" alt=""></li>
-							<li><img src="img/i5.jpg" alt=""></li>
-							<li><img src="img/i6.jpg" alt=""></li>
-							<li><img src="img/i7.jpg" alt=""></li>
-							<li><img src="img/i8.jpg" alt=""></li>
+							<li><img src="{{asset('img/i1.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i2.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i3.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i4.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i5.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i6.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i7.jpg')}}" alt=""></li>
+							<li><img src="{{asset('img/i8.jpg')}}" alt=""></li>
 						</ul>
 					</div>
 				</div>
@@ -205,6 +205,35 @@
 	<!-- <script src="{{asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE')}}"></script>
 	<script src="{{asset('js/gmaps.min.js')}}"></script> -->
 	<script src="{{asset('js/main.js')}}"></script>
+	<script>
+	$(document).ready(function(){
+		$('.pixel-radio').click(function() {
+			var brand = $(this).attr('id');
+			var dataString = "brand="+brand; 
+			$.ajax({
+        	    type:'POST',
+	            url:'/ajax',
+    	        data: dataString,
+        	    success:function(product){
+					$('.lattest-product-area').html(product); 
+        	    }
+            });
+		});
+	});
+    </script>
+	<script>
+	$("#numb").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
+		var numb = $(this).val(); 
+		var dataString = "numb="+numb; 
+		$.ajax({ 
+			type: "POST",
+			url: "/ajaxShow", 
+			data: dataString, 
+			success: function(result){ 
+				$('.lattest-product-area').html(result); 
+			}
+		});
+	});
+	</script>
 </body>
-
 </html>

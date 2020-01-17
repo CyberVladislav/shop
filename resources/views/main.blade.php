@@ -834,6 +834,6 @@
 	<!-- End brand Area -->
 
 	<!-- Start related-product Area -->
-	@include('dealsOfWeek')
+	<?php /* @include('dealsOfWeek') */ ?>
     <!-- End related-product Area -->
 @endsection

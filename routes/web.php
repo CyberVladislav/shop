@@ -41,3 +41,7 @@ Auth::routes();
 Route::post('/addReview', 'ShopController@getAddReview');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/ajax', 'AjaxController@brandAndColor');
+
+Route::post('/ajaxShow', 'AjaxController@show');
