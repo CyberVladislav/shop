@@ -129,8 +129,6 @@ class ShopController extends Controller
 
     public function getAddReview(Request $request)
     {
-        // Validate the request...
-
         $feedback = new Review;
         if (Auth::check())
         {

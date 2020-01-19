@@ -20,5 +20,10 @@ class Product extends Model
     {
         return count(Product::where('color', '=', $this->color)->get());
     }
+    
+    public function order()
+    {
+        return $this->belongsToMany('App\Order', 'products_orders', 'product_id', 'order_id');
+    }
+    
 }
-

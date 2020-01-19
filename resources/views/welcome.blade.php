@@ -2,6 +2,7 @@
 <html lang="zxx" class="no-js">
 
 <head>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
@@ -51,28 +52,28 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="{{ asset('category') }}">Shop</a></li>
-							<li class="nav-item submenu dropdown">
+							<li class="{{ ($url=='/') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('/') }}">Home</a></li>
+							<li class="{{ ($url=='/category') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('category') }}">Catalog</a></li>
+							<li class="{{ ($url=='/blog' || $url=='/singleBlog') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{{ asset('blog') }}">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ asset('singleBlog') }}">Blog Details</a></li>
+									<li class="{{ ($url=='/blog') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('blog') }}">Blog</a></li>
+									<li class="{{ ($url=='/singleBlog') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('singleBlog') }}">Blog Details</a></li>
 								</ul>
 							</li>
-							<li class="nav-item submenu dropdown">
+							<li class="{{ ($url=='/tracking' || $url=='/elements') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{{ asset('tracking') }}">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li>
+									<li class="{{ ($url=='/tracking') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('tracking') }}">Tracking</a></li>
+									<li class="{{ ($url=='/elements') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li>
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
+							<li class="{{ ($url=='/contact') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
 
 							@if (Auth::check())
-							<li class="nav-item"><a class="nav-link" href="{{ asset('login') }}">{{Auth::user()->name}}</a></li>
+							<li class="{{ ($url=='/login') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('login') }}">{{Auth::user()->name}}</a></li>
 								<li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -83,7 +84,7 @@
                                             {{ csrf_field() }}
                                         </form>
 							@else
-								<li class="nav-item"><a class="nav-link" href="{{ asset('login') }}">Login</a></li>
+								<li class="{{ ($url=='/login') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('login') }}">Login</a></li>
 							@endif
 								
 						</ul>
@@ -206,6 +207,13 @@
 	<script src="{{asset('js/gmaps.min.js')}}"></script> -->
 	<script src="{{asset('js/main.js')}}"></script>
 	<script>
+		$.ajaxSetup({
+			beforeSend: function(xhr, type) {
+				if (!type.crossDomain) {
+					xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+				}
+			},	
+		});
 	$(document).ready(function(){
 		$('.pixel-radio').click(function() {
 			var brand = $(this).attr('id');
@@ -220,9 +228,9 @@
             });
 		});
 	});
-    </script>
+    </script>`
 	<script>
-	$("#numb").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
+	$(".test").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
 		var numb = $(this).val(); 
 		var dataString = "numb="+numb; 
 		$.ajax({ 
@@ -235,5 +243,20 @@
 		});
 	});
 	</script>
+	<script>
+		$(".test123").click(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
+			var numb = $(this).attr('data-product');
+			var dataString = "numb="+numb; 
+			$.ajax({ 
+				type: "POST",
+				url: "/ajaxCart", 
+				data: dataString, 
+				success: function(result){ 
+			//		if(result == 'reload') window.location.href('/login');
+				}
+			});
+		});
+	</script>
+
 </body>
 </html>
