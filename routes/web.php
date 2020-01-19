@@ -45,3 +45,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/ajax', 'AjaxController@brandAndColor');
 
 Route::post('/ajaxShow', 'AjaxController@show');
+
+Route::post('/ajaxCart', 'AjaxController@cart');
