@@ -20,6 +20,7 @@
 	<!--
 		CSS
 		============================================= -->
+		
 	<link rel="stylesheet" href="{{asset('css/linearicons.css')}}">
 	<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/themify-icons.css')}}">
@@ -80,14 +81,16 @@
                                             Logout
                                         </a> </li>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+                                        
 							@else
 								<li class="{{ ($url=='/login') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('login') }}">Login</a></li>
 							@endif
+							
 								
 						</ul>
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                        </form>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
@@ -222,17 +225,31 @@
         	    type:'POST',
 	            url:'/ajax',
     	        data: dataString,
+		
+			
+			// var brand = $('input[name="brand"]:checked').attr('id');
+			// var color = $('.color-filtr').attr('id');
+			// console.log($('input[name="brand"]:checked').attr('id') + ' ' + $('input[name="color"]:checked').attr('id') + ' ' + color);
+			// // var dataString = "brand="+brand; 
+			// $.ajax({
+        	//     type:'POST',
+	        //     url:'/ajax',
+    	    //     data: {
+			// 		'brand': brand,
+			// 		'color': color,
+			// 	},
+				
         	    success:function(product){
 					$('.lattest-product-area').html(product); 
         	    }
             });
 		});
 	});
-    </script>`
+    </script>
 	<script>
-	$(".test").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-		var numb = $(this).val(); 
-		var dataString = "numb="+numb; 
+	$(".show-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
+		var show = $(this).val(); 
+		var dataString = "show="+show; 
 		$.ajax({ 
 			type: "POST",
 			url: "/ajaxShow", 
@@ -244,19 +261,41 @@
 	});
 	</script>
 	<script>
-		$(".test123").click(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-			var numb = $(this).attr('data-product');
-			var dataString = "numb="+numb; 
+		$(".add-to-cart").click(function(){
+			var productId = $(this).attr('data-product');
+			var dataString = "productId="+productId; 
 			$.ajax({ 
 				type: "POST",
 				url: "/ajaxCart", 
 				data: dataString, 
-				success: function(result){ 
-			//		if(result == 'reload') window.location.href('/login');
+				success: function(result){
+					if(result.result == 'reload')
+					window.location.href = '/login';
 				}
 			});
 		});
 	</script>
+	<script>
+		var thisCoast = 0;
+		$(".price-choosen-product").each(function() {
+			thisCoast += parseInt($(this).attr('price-of-product'));
+			$('.sub-total').text("$"+thisCoast);
+		});
+		$(".price-choosen-product").change(function(){
+			var count = $(this).attr('count');
+			var number = $(this).val(); 
+			$(this).attr('count',+number);
+
+			var price = $(this).attr('price-of-product');
+			var idOfProduct = $(this).attr('id-of-product');
+
+			var totalCoast = number * price;
+			$('.price-product-'+idOfProduct).text("$"+totalCoast);
+			thisCoast += ((number-count) * price);
+			$('.sub-total').text("$"+thisCoast);
+		});
+	</script>
+	
 
 </body>
 </html>

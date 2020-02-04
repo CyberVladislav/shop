@@ -7,6 +7,8 @@ use App\Product;
 use App\Contact;
 use App\Review;
 use App\User;
+use App\Order;
+use App\ProductsOrder;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -124,11 +126,24 @@ class ShopController extends Controller
     } 
 
     public function getCart(){
-        return view('cart');
+        if (Auth::check()){
+            $orderNumber = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
+            // $orderNumber = $test->id;
+            // $numbOfOrderProducts = ProductsOrder::where('order_id', $orderNumber)->get();
+            // $user = Order::find(5);
+            $numbOfOrderProducts = $orderNumber->products;
+        }
+        else 
+            return redirect('/category'); //окно "Вы не авторизованы, войдите для добавления товара в корзину"
+
+        return view('cart', [
+            // 'numbOfOrderProducts' => $numbOfOrderProducts,
+            'numbOfOrderProducts' =>$numbOfOrderProducts,
+
+        ]);
     }
 
-    public function getAddReview(Request $request)
-    {
+    public function getAddReview(Request $request){
         $feedback = new Review;
         if (Auth::check())
         {

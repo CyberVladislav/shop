@@ -32,25 +32,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 3; $i++)
+                            @foreach ($numbOfOrderProducts as $numbOfOrderProduct)
                             <tr>
                                 <td>
                                     <div class="media">
-                                        <div class="d-flex">
+                                        <div class="d-flex">                                        
+                                        
                                             <img src="img/cart.jpg" alt="">
+                                            <!-- <img src="{{$numbOfOrderProduct->image}}" alt=""> -->
+                                            <!-- <img class="img-fluid" src = "{{$numbOfOrderProduct->image}}" alt=""></a> -->
+
                                         </div>
                                         <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
+
+                                            <!-- При вставке описания едет разметка  -->
+                                            <!-- <p>{{$numbOfOrderProduct->description}}</p> --> 
+                                            <p>Test descriptin</p>
+
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$360.00</h5>
+                                    <h5>${{$numbOfOrderProduct->price}}</h5>
                                 </td>
                                 <td>
                                     <div class="product_count">
                                         <div class="sorting mr-auto">
-                                            <select>
+                                                                <!-- ДОБАВИТЬ В БД КОЛИЧЕСТВО ТОВАРА И ЗАПИСЫВАТЬ ИЗ БД В COUNT  -->
+                                            <select class="price-choosen-product" count="1" id-of-product="{{$numbOfOrderProduct->id}}"  price-of-product="{{$numbOfOrderProduct->price}}">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -61,10 +70,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$720.00</h5>
+                                    <h5 class="price-product-{{$numbOfOrderProduct->id}}">${{$numbOfOrderProduct->price}}</h5>
                                 </td>
-                            </tr>
-                            @endfor
+                            </tr>                          
+                            @endforeach
                             <tr class="bottom_button">
                                 <td>
                                     <a class="gray_btn" href="#">Update Cart</a>
@@ -94,7 +103,7 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5 class="sub-total"></h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
