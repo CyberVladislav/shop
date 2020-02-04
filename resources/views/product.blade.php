@@ -23,7 +23,7 @@
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
-					<div class="s_Product_carousel">
+					<!-- <div class="s_Product_carousel">
 						<div class="single-prd-item">
 							<img class="img-fluid" src="{{$product->image}}" alt="">
 						</div>
@@ -33,7 +33,7 @@
 						<div class="single-prd-item">
 							<img class="img-fluid" src="{{$product->image}}" alt="">
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
@@ -53,7 +53,7 @@
 							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn test123" data-product="{{$product->id}}" href="{{asset('##')}}">Add to Cart</a>
+							<a class="primary-btn add-to-cart" data-product="{{$product->id}}" href="{{asset('##')}}">Add to Cart</a>
 							<a class="icon_btn"  href="{{asset('#')}}"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn"  href="{{asset('#')}}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
