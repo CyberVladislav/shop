@@ -218,47 +218,38 @@
 			},	
 		});
 	$(document).ready(function(){
-		$('.pixel-radio').click(function() {
-			var brand = $(this).attr('id');
-			var dataString = "brand="+brand; 
+		$('.test-checkbox').click(function() {
+			var arr=$('input:checkbox:checked').map(function() {return ($(this).attr('id'));}).get();
+			// if (arr.length == 0) {
+			// 	var asd = [];
+			// 	arr = asd;
+			// };
 			$.ajax({
-        	    type:'POST',
-	            url:'/ajax',
-    	        data: dataString,
-		
-			
-			// var brand = $('input[name="brand"]:checked').attr('id');
-			// var color = $('.color-filtr').attr('id');
-			// console.log($('input[name="brand"]:checked').attr('id') + ' ' + $('input[name="color"]:checked').attr('id') + ' ' + color);
-			// // var dataString = "brand="+brand; 
-			// $.ajax({
-        	//     type:'POST',
-	        //     url:'/ajax',
-    	    //     data: {
-			// 		'brand': brand,
-			// 		'color': color,
-			// 	},
-				
-        	    success:function(product){
-					$('.lattest-product-area').html(product); 
-        	    }
-            });
+				type:'POST',
+				url:'/ajax',
+				data:{ 
+					'brandAndColor[]': arr,
+				},
+				success: function(result){
+					$('.lattest-product-area').html(result); 
+				}
+			});                                
 		});
 	});
-    </script>
+	</script>
 	<script>
-	$(".show-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-		var show = $(this).val(); 
-		var dataString = "show="+show; 
-		$.ajax({ 
-			type: "POST",
-			url: "/ajaxShow", 
-			data: dataString, 
-			success: function(result){ 
-				$('.lattest-product-area').html(result); 
-			}
+		$(".show-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
+			var show = $(this).val(); 
+			var dataString = "show="+show; 
+			$.ajax({ 
+				type: "POST",
+				url: "/ajaxShow", 
+				data: dataString, 
+				success: function(result){ 
+					$('.lattest-product-area').html(result); 
+				}
+			});
 		});
-	});
 	</script>
 	<script>
 		$(".add-to-cart").click(function(){
@@ -295,7 +286,5 @@
 			$('.sub-total').text("$"+thisCoast);
 		});
 	</script>
-	
-
 </body>
 </html>

@@ -10,3 +10,12 @@
 .mb-90 {
     margin-bottom: 90px;
 }
+
+.test-checkbox {
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+    background: #f9f9ff;
+    position: relative;
+    cursor: pointer;     
+}

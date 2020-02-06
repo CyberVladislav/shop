@@ -13,37 +13,17 @@ use Auth;
 class AjaxController extends Controller
 {
     public function brandAndColor(){   
-        $brandOrColor = $_POST["brand"];
-        $products = Product::where ('brand', '=', $brandOrColor)
-                            ->orWhere('color', '=', $brandOrColor)
-                            ->get();
+        if (isset($_POST["brandAndColor"]))
+            $products = Product::whereIn('brand', $_POST["brandAndColor"])
+                                ->orWhereIn('color', $_POST["brandAndColor"] )
+                                ->paginate(12);
 
-        return view('showProducts', [
-            'products' => $products, 
-        ]);
-
-        // $brand = isset($_POST["brand"]) ? $_POST["brand"] : "undefined";
-        // $color = isset($_POST["color"]) ? $_POST["color"] : "undefined";
+        else    
+            $products = Product::paginate(12);
         
-        // if ($color != "undefined" && $brand !="undefined"){
-        //     $products = Product::where ('brand', '=', $brand)
-        //                         ->where('color', '=', $color)
-        //                         ->get();
-        // }
-        // elseif ($brand != "undefined") {
-        //     $products = Product::where ('brand', '=', $brand)
-        //                         ->get();
-        // }
-        // else {
-        //     $products = Product::where('color', '=', $color)
-        //                         ->get();
-        // }
-
         return view('showProducts', [
             'products' => $products, 
         ]);
-
-
     }
 
     public function show($number = null){
