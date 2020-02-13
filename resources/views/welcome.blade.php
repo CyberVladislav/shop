@@ -218,47 +218,38 @@
 			},	
 		});
 	$(document).ready(function(){
-		$('.pixel-radio').click(function() {
-			var brand = $(this).attr('id');
-			var dataString = "brand="+brand; 
+		$('.test-checkbox').click(function() {
+			var arr=$('input:checkbox:checked').map(function() {return ($(this).attr('id'));}).get();
+			// if (arr.length == 0) {
+			// 	var asd = [];
+			// 	arr = asd;
+			// };
 			$.ajax({
-        	    type:'POST',
-	            url:'/ajax',
-    	        data: dataString,
-		
-			
-			// var brand = $('input[name="brand"]:checked').attr('id');
-			// var color = $('.color-filtr').attr('id');
-			// console.log($('input[name="brand"]:checked').attr('id') + ' ' + $('input[name="color"]:checked').attr('id') + ' ' + color);
-			// // var dataString = "brand="+brand; 
-			// $.ajax({
-        	//     type:'POST',
-	        //     url:'/ajax',
-    	    //     data: {
-			// 		'brand': brand,
-			// 		'color': color,
-			// 	},
-				
-        	    success:function(product){
-					$('.lattest-product-area').html(product); 
-        	    }
-            });
+				type:'POST',
+				url:'/ajax',
+				data:{ 
+					'brandAndColor[]': arr,
+				},
+				success: function(result){
+					$('.lattest-product-area').html(result); 
+				}
+			});                                
 		});
 	});
-    </script>
+	</script>
 	<script>
-	$(".show-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-		var show = $(this).val(); 
-		var dataString = "show="+show; 
-		$.ajax({ 
-			type: "POST",
-			url: "/ajaxShow", 
-			data: dataString, 
-			success: function(result){ 
-				$('.lattest-product-area').html(result); 
-			}
+		$(".show-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
+			var show = $(this).val(); 
+			var dataString = "show="+show; 
+			$.ajax({ 
+				type: "POST",
+				url: "/ajaxShow", 
+				data: dataString, 
+				success: function(result){ 
+					$('.lattest-product-area').html(result); 
+				}
+			});
 		});
-	});
 	</script>
 	<script>
 		$(".add-to-cart").click(function(){
@@ -295,7 +286,60 @@
 			$('.sub-total').text("$"+thisCoast);
 		});
 	</script>
+	<script>
+		//----- Active No ui slider --------//
+		$.ajax({
+			url: '/rangePrice'
+		}).then(function (result) {
+			// var minPrice = parseFloat(result.min);
+			// var maxPrice = parseFloat(result.max);
+			var minimum = parseInt(result.min);
+			var maximum = parseInt(result.max);
+			$(function(){
+			if(document.getElementById("price-range")){
+				var nonLinearSlider = document.getElementById('price-range');
+				noUiSlider.create(nonLinearSlider, {
+					connect: true,
+					behaviour: 'tap',
+					start: [ 0, maximum ],
+					range: {
+						// Starting at 500, step the value by 500,
+						// until 4000 is reached. From there, step by 1000.
+						'min': [ 0 ],
+						'max': [ maximum ]
+					}
+				});
+				var nodes = [
+					document.getElementById('lower-value'), // 0
+					document.getElementById('upper-value')  // 1
+				];
+				// Display the slider value and how far the handle moved
+				// from the left edge of the slider.
+				nonLinearSlider.noUiSlider.on('update', function ( values, handle, unencoded, isTap, positions ) {
+					nodes[handle].innerHTML = values[handle];
+					var arr = nonLinearSlider.noUiSlider.get();
+					console.log(arr);
+					$.ajax({
+						type:'POST',
+						url:'/ajaxSlider',
+						data:{ 
+							'varPr[]': arr,
+						},
+						success: function(result){
+							$('.lattest-product-area').html(result); 
+						},
+						error: function(err){
+							console.log(err);
+						}
+					});  
+					
+				});
+			}
+		});
+		})
+		
+	</script>
 	
-
+	
 </body>
 </html>

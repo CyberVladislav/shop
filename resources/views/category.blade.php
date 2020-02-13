@@ -38,7 +38,8 @@
 							<div class="scrollbar-brand-color">
 								<ul>
 									@foreach ($brands as $brand)
-									<li class="filter-list"><input class="pixel-radio brand-filtr" type="radio" id="{{$brand->brand}}" name="brand"><label for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
+									<li class="filter-list"><input class="test-checkbox" type="checkbox" id="{{$brand->brand}}" name="brand">
+									<label class="ml-lg-2" for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
 									@endforeach
 								</ul>
 							</div>
@@ -50,7 +51,8 @@
 							<div class="scrollbar-brand-color">
 								<ul>
 									@foreach ($colors as $color)
-									<li class="filter-list"><input class="pixel-radio color-filtr" type="radio" id="{{$color->color}}" name="color"><label for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
+									<li class="filter-list"><input class="test-checkbox" type="checkbox" id="{{$color->color}}" name="color">
+									<label class="ml-lg-2" for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
 									@endforeach
 								</ul>
 							</div>	
