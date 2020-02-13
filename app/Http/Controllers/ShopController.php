@@ -26,11 +26,19 @@ class ShopController extends Controller
     }
 
     public function getContact(){
+<<<<<<< Updated upstream
         $contacts = Contact::all();
 
         return view('contact', [
             'contacts' => $contacts
             ]);
+=======
+        $contact = Contact::all();
+
+        return view('contact',[
+            'contact' => $contact,
+        ]);
+>>>>>>> Stashed changes
     } 
 
     public function getBlog(){

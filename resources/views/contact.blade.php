@@ -37,7 +37,11 @@
 						<div class="info_item">
 							<i class="lnr lnr-phone-handset"></i>
 							<h6><a href="#">{{$contact->phone}}</a></h6>
+<<<<<<< Updated upstream
 							<p>{{$contact->workTime}}</p>
+=======
+							<p>Mon to Fri 9am to 6 pm</p>
+>>>>>>> Stashed changes
 						</div>
 						<div class="info_item">
 							<i class="lnr lnr-envelope"></i>
