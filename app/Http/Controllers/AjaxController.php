@@ -17,7 +17,6 @@ class AjaxController extends Controller
             $products = Product::whereIn('brand', $_POST["brandAndColor"])
                                 ->orWhereIn('color', $_POST["brandAndColor"] )
                                 ->paginate(12);
-
         else    
             $products = Product::paginate(12);
         
@@ -64,4 +63,24 @@ class AjaxController extends Controller
         return back();
     }
 
+    public function priceSlider(){
+        $asd = current($_POST["varPr"]);
+        $zxc = next($_POST["varPr"]);
+        $min = (float)$asd;
+        $max = (float)$zxc;
+        $products = Product::where('price', '>', $min)
+                            ->where('price', '<', $max)
+                            ->paginate(12);
+        
+        return view('showProducts', [
+            'products' => $products,
+        ]);
+    }
+
+    public function rangePrices(){
+        $minPriceProduct = Product::min('price');
+        $maxPriceProduct = Product::max('price');
+
+        return array('min' => $minPriceProduct, 'max' => $maxPriceProduct);
+    }
 }

@@ -47,3 +47,7 @@ Route::post('/ajax', 'AjaxController@brandAndColor');
 Route::post('/ajaxShow', 'AjaxController@show');
 
 Route::post('/ajaxCart', 'AjaxController@cart');
+
+Route::post('/ajaxSlider', 'AjaxController@priceSlider');
+
+Route::get('/rangePrice', 'AjaxController@rangePrices');
