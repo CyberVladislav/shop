@@ -13,21 +13,13 @@ use Auth;
 class AjaxController extends Controller
 {
     public function brandAndColor(){   
-<<<<<<< Updated upstream
         if (isset($_POST["brandAndColor"]))
             $products = Product::whereIn('brand', $_POST["brandAndColor"])
                                 ->orWhereIn('color', $_POST["brandAndColor"] )
-                                ->paginate(12);
+                                ->paginate(24);
         else    
-            $products = Product::paginate(12);
+            $products = Product::paginate(24);
         
-=======
-        $brandOrColor = $_POST["brand"];
-        $products = Product::where ('brand', '=', $brandOrColor)
-                            ->orWhere('color', '=', $brandOrColor)
-                            ->get();
-
->>>>>>> Stashed changes
         return view('showProducts', [
             'products' => $products, 
         ]);
@@ -78,7 +70,7 @@ class AjaxController extends Controller
         $max = (float)$zxc;
         $products = Product::where('price', '>', $min)
                             ->where('price', '<', $max)
-                            ->paginate(12);
+                            ->paginate(24);
         
         return view('showProducts', [
             'products' => $products,

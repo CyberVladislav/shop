@@ -23,17 +23,23 @@
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
-					<!-- <div class="s_Product_carousel">
+					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="{{$product->image}}" alt="">
+							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-1.jpg')}}" alt=""> <?php /* <img class="img-fluid" src="{{$product->image}}" alt=""> */ ?>
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="{{$product->image}}" alt="">
+							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-2.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="{{$product->image}}" alt="">
+							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-3.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
 						</div>
-					</div> -->
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-4.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-5.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
+						</div>
+					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
