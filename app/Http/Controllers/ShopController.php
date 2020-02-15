@@ -26,19 +26,11 @@ class ShopController extends Controller
     }
 
     public function getContact(){
-<<<<<<< Updated upstream
         $contacts = Contact::all();
 
         return view('contact', [
             'contacts' => $contacts
             ]);
-=======
-        $contact = Contact::all();
-
-        return view('contact',[
-            'contact' => $contact,
-        ]);
->>>>>>> Stashed changes
     } 
 
     public function getBlog(){
@@ -68,7 +60,7 @@ class ShopController extends Controller
         $colors = Product::select('color')
                             ->distinct()
                             ->get();
-        $products = Product::paginate(12);
+        $products = Product::paginate(24);
         $productCount = Category::withCount('product')->get();
         $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)
                             ->get()
@@ -90,7 +82,7 @@ class ShopController extends Controller
         $colors = Product::select('color')
                             ->distinct()
                             ->get();
-        $products = Product::where ('category_id', $categoryId)->paginate(12);
+        $products = Product::where ('category_id', $categoryId)->paginate(24);
         $productCount = Category::withCount('product')->get();
         $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)
                             ->get()

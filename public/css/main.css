@@ -60,6 +60,12 @@
   background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
   background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); }
 
+.pagination a.disable-button-pagin{
+   background: -webkit-linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background: -moz-linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background: -o-linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%); }
+}
 .gradient-bg-reverse, #search_input_box {
   background: -webkit-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
   background: -moz-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
@@ -3160,6 +3166,9 @@ label {
     background: #fff; }
     .pagination a.active {
       color: #fff; }
+      .pagination a.disable-button-pagin:hover{
+        color: black;
+      }
     .pagination a:hover {
       color: #fff; }
   .pagination .dot-dot {

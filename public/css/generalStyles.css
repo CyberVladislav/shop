@@ -19,3 +19,9 @@
     position: relative;
     cursor: pointer;     
 }
+
+.dis-button{
+    color: #af0606, 0.3;
+    background: #0e0ec3;
+    cursor: not-allowed;
+}
