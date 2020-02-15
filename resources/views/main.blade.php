@@ -22,13 +22,14 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="img/banner/banner-img.png" alt="">
+									<img class="img-fluid" src="img/banner/nike-air-force-1-CD0884-101-1.png" alt="">
 								</div>
 							</div>
 						</div>
-						<!-- single-slide -->
-						<div class="row single-slide">
-							<div class="col-lg-5">
+
+					<!-- single-slide -->
+					<div class="row single-slide align-items-center d-flex">
+							<div class="col-lg-5 col-md-6">
 								<div class="banner-content">
 									<h1>Nike New <br>Collection!</h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
@@ -41,7 +42,7 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="img/banner/banner-img.png" alt="">
+									<img class="img-fluid" src="img/banner/Nike-Air-Force-1-Low-City-Of-Dreams-CT8441-001-3.png" alt="">
 								</div>
 							</div>
 						</div>
