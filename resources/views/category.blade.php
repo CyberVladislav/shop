@@ -78,10 +78,12 @@
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select>
-							<option value="1">Default sorting</option>
-							<option value="1">Default sorting</option>
-							<option value="1">Default sorting</option>
+						<select class="sorting-product">
+							<option value="id,asc">Default sorting</option>
+							<option value="price,asc">Prices sorting prices: Low to High</option>
+							<option value="price,desc">Prices sorting: High to Low</option>
+							<option value="name,asc">Names sorting: A to Z</option>
+							<option value="name,desc">Names sorting: Z to A</option>
 						</select>
 					</div>
 					@include('pagin')
