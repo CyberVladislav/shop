@@ -51,3 +51,5 @@ Route::post('/ajaxCart', 'AjaxController@cart');
 Route::post('/ajaxSlider', 'AjaxController@priceSlider');
 
 Route::get('/rangePrice', 'AjaxController@rangePrices');
+
+Route::post('/ajaxSort', 'AjaxController@sorting');

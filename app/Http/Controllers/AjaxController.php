@@ -83,4 +83,15 @@ class AjaxController extends Controller
 
         return array('min' => $minPriceProduct, 'max' => $maxPriceProduct);
     }
+
+    public function sorting(){ 
+        $arr = explode(',', $_POST['sort']);
+        $tableName = current($arr);
+        $direction = next($arr);
+        $sortProducts = Product::orderBy($tableName, $direction)->get();
+
+        return view('showProducts',[
+            'products' => $sortProducts,
+        ]);
+    }
 }

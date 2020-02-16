@@ -4,8 +4,7 @@
 		@foreach($products as $product)
 			<div class="col-lg-4 col-md-6">
 				<div class="single-product">
-					<a href="{{asset('product/'.$product->id)}}"><img class="img-fluid" src = "{{asset('img/nike-air-force-1-black-university-gold-wu-tang-1.jpg')}}" alt=""></a>
-					 <?php /* <img class="img-fluid" src = "{{$product->image}}" alt=""></a> */ ?>
+					<a href="{{asset('product/'.$product->id)}}"><img class="img-fluid" src = "{{$product->image}}" alt=""></a>
 					<div class="product-details" >
 						<h6><a href="{{asset('product/'.$product->id)}}">{{$product->name}}</a></h6>
 						<div class="price">
