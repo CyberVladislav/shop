@@ -38,8 +38,6 @@ Route::get('/cart', 'ShopController@getCart');
 Route::get('/confirmation', 'ShopController@getConfirmation');
 Auth::routes();
 
-Route::post('/addReview', 'ShopController@getAddReview');
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/ajax', 'AjaxController@brandAndColor');
@@ -53,3 +51,5 @@ Route::post('/ajaxSlider', 'AjaxController@priceSlider');
 Route::get('/rangePrice', 'AjaxController@rangePrices');
 
 Route::post('/ajaxSort', 'AjaxController@sorting');
+
+Route::post('/ajaxLeaveReview', 'AjaxController@leaveReview');

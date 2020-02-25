@@ -128,38 +128,33 @@ class ShopController extends Controller
     public function getCart(){
         if (Auth::check()){
             $orderNumber = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
-            // $orderNumber = $test->id;
-            // $numbOfOrderProducts = ProductsOrder::where('order_id', $orderNumber)->get();
-            // $user = Order::find(5);
             $numbOfOrderProducts = $orderNumber->products;
         }
         else 
             return redirect('/category'); //окно "Вы не авторизованы, войдите для добавления товара в корзину"
 
         return view('cart', [
-            // 'numbOfOrderProducts' => $numbOfOrderProducts,
             'numbOfOrderProducts' =>$numbOfOrderProducts,
 
         ]);
     }
 
-    public function getAddReview(Request $request){
-        $feedback = new Review;
-        if (Auth::check())
-        {
-        $feedback->user_id = Auth::user()->id;
-        $feedback->parent_id = '0';
-        }
-        else
-        $feedback->user_id = '8';
-        $feedback->parent_id = '0';
-        $feedback->rating = '0';    
-        $feedback->description = $request->message;
+    // public function getAddReview(Request $request){
+    //     $feedback = new Review;
+    //     if (Auth::check()){
+    //         $feedback->user_id = Auth::user()->id;
+    //         $feedback->parent_id = '0';
+    //     }
+    //     else
+    //         $feedback->user_id = '8';
+    //         $feedback->parent_id = '0';
+    //         $feedback->rating = '0';    
+    //         $feedback->description = $request->message;
 
-        $feedback->save();
+    //     $feedback->save();
 
-        return back();
-    }
+    //     return back();
+    // }
 
     public function getConfirmation(){
         return view('confirmation');

@@ -1,4 +1,4 @@
-@extends ('welcome')
+@extends ('layouts.base')
 @section('content')
 
 	<!-- Start Banner Area -->
@@ -79,10 +79,6 @@
 					 aria-selected="false">Specification</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="{{asset('#contact')}}" role="tab" aria-controls="contact"
-					 aria-selected="false">Comments</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link active" id="review-tab" data-toggle="tab" href="{{asset('#review')}}" role="tab" aria-controls="review"
 					 aria-selected="false">Reviews</a>
 				</li>
@@ -120,45 +116,6 @@
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
-								@foreach ($parentComment as $parent)
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-1.png')}}" alt="">
-										</div>
-										<div class="media-body">
-											<h4>{{$parent->user->name}}</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-										</div>
-									</div>
-									<p>{{$parent->description}}</p>
-								</div>
-								@foreach($parent->childComments() as $child)
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-2.png')}}" alt="">
-										</div>
-										<div class="media-body">
-											<h4>{{$child->user->name}}</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-										</div>
-									</div>
-									<p>{{$child->description}}</p>
-								</div>
-								@endforeach
-								@endforeach
-							</div>
-						</div>
-						
-					</div>
-				</div>
 				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-6">
@@ -188,67 +145,47 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-								<div class="comment_list">
-									@foreach ($parentComment as $parent)
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{{asset('img/product/review-1.png')}}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>{{$parent->user->name}}</h4>
-												<h5>{{ \Carbon\Carbon::parse($parent->created_at)->format('d/m/Y H:i')}}</h5>												
-													@while ($parent->rating-- > 0)
-													<i class="fa fa-star"></i>
-													@endwhile
-											
-												<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-											</div>
-										</div>
-										<p>{{$parent->description}}</p>
-									</div>
-									@foreach($parent->childComments() as $child)
-									<div class="review_item reply">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{{asset('img/product/review-2.png')}}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>{{$child->user->name}}</h4>
-												<h5>{{ \Carbon\Carbon::parse($parent->created_at)->format('d/m/Y H:i')}}</h5>
-												<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-											</div>
-										</div>
-										<p>{{$child->description}}</p>
-									</div>
-									@endforeach
-									@endforeach
-								</div>
+						<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+							<div class="comment_list">
+								@include('review')
 							</div>
+						</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Add a Review</h4>
-								<p>Your Rating:</p>
-								<ul class="list">
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-								</ul>
-								<p>Outstanding</p>
-								<form class="row contact_form" action="{{asset('addReview')}}" method="post" id="contactForm" novalidate="novalidate">
+								<form class="row contact_form" id="contactform"  novalidate="novalidate">
 								{{ csrf_field() }}
+										<div class="col mb-3">
+											<p>* Your Rating:</p>
+											<div class="star-rating__wrap">
+												<input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 of 5 stars"></label>
+											</div>
+										</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea></textarea>
+											<textarea class="form-control" name="message" id="message" rows="1" placeholder="* Review" onfocus="this.placeholder = ''" onblur="this.placeholder = '* Review'"></textarea>
 										</div>
 									</div>
 									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="primary-btn">Submit Now</button>
+										<button class="primary-btn" type="submit">Submit Now</button>
+									</div>
+									<div class="col-md-12" id="sendmessage">
+										Ой, кажется здесь кто-то насрал и не убрал. А нет, это Вы оставили отзыв, Сэр!
+										<!-- Спасибо, Ваш отзыв отправлен! -->
+									</div>
+									<div id="senderror">
+									Если бы ты не был таким тупым, ошибки бы не возникло. Попробуй нацарапать ещё раз, Мудила!
+										<!-- При отправке отзыва произошла ошибка. Пожалуйста, повторите попытку, убедившись в том, что вы заполнили все обязательные поля - * -->
 									</div>
 								</form>
 							</div>

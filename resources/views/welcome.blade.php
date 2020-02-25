@@ -2,7 +2,6 @@
 <html lang="zxx" class="no-js">
 
 <head>
-	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
@@ -20,7 +19,6 @@
 	<!--
 		CSS
 		============================================= -->
-		
 	<link rel="stylesheet" href="{{asset('css/linearicons.css')}}">
 	<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/themify-icons.css')}}">
@@ -53,44 +51,42 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="{{ ($url=='/') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-							<li class="{{ ($url=='/category') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('category') }}">Catalog</a></li>
-							<li class="{{ ($url=='/blog' || $url=='/singleBlog') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
+							<li class="nav-item"><a class="nav-link" href="{{ asset('/') }}" class="{{ ($url='/') ? 'exampl' : '' }}">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ asset('category') }}" class="">Shop</a></li>
+							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
-									<li class="{{ ($url=='/blog') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('blog') }}">Blog</a></li>
-									<li class="{{ ($url=='/singleBlog') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('singleBlog') }}">Blog Details</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{ asset('blog') }}" class="">Blog</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{ asset('singleBlog') }}">Blog Details</a></li>
 								</ul>
 							</li>
-							<li class="{{ ($url=='/tracking' || $url=='/elements') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
+							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="{{ ($url=='/tracking') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('tracking') }}">Tracking</a></li>
-									<li class="{{ ($url=='/elements') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{ asset('tracking') }}">Tracking</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li>
 								</ul>
 							</li>
-							<li class="{{ ($url=='/contact') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
 
 							@if (Auth::check())
-							<li class="{{ ($url=='/login') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('login') }}">{{Auth::user()->name}}</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ asset('login') }}">{{Auth::user()->name}}</a></li>
 								<li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a> </li>
 
-                                        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
 							@else
-								<li class="{{ ($url=='/login') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('login') }}">Login</a></li>
+								<li class="nav-item"><a class="nav-link" href="{{ asset('login') }}">Login</a></li>
 							@endif
-							
 								
 						</ul>
-						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                        </form>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
@@ -113,249 +109,5 @@
 	</header>
 	<!-- End Header Area -->
 
-	@yield('content')
-	
-	<!-- start footer Area -->
-	<footer class="footer-area section_gap">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>About Us</h6>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-							magna aliqua.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>Newsletter</h6>
-						<p>Stay update with our latest</p>
-						<div class="" id="mc_embed_signup">
-
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-							 method="get" class="form-inline">
-
-								<div class="d-flex flex-row">
-
-									<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-									 required="" type="email">
-
-
-									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-									<div style="position: absolute; left: -5000px;">
-										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-									</div>
-
-									<!-- <div class="col-lg-4 col-md-4">
-												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-											</div>  -->
-								</div>
-								<div class="info"></div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3  col-md-6 col-sm-6">
-					<div class="single-footer-widget mail-chimp">
-						<h6 class="mb-20">Instragram Feed</h6>
-						<ul class="instafeed d-flex flex-wrap">
-							<li><img src="{{asset('img/i1.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i2.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i3.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i4.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i5.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i6.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i7.jpg')}}" alt=""></li>
-							<li><img src="{{asset('img/i8.jpg')}}" alt=""></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>Follow Us</h6>
-						<p>Let us be social</p>
-						<div class="footer-social d-flex align-items-center">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				</p>
-			</div>
-		</div>
-	</footer>
-	<!-- End footer Area -->
-	<script src="{{asset('js/vendor/jquery-2.2.4.min.js')}}"></script>
-	<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')}}" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-	 crossorigin="anonymous"></script>
-	<script src="{{asset('js/vendor/bootstrap.min.js')}}"></script>
-	<script src="{{asset('js/jquery.ajaxchimp.min.js')}}"></script>
-	<script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
-	<script src="{{asset('js/jquery.sticky.js')}}"></script>
-    <script src="{{asset('js/countdown.js')}}"></script>
-	<script src="{{asset('js/nouislider.min.js')}}"></script>
-	<script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
-	<script src="{{asset('js/owl.carousel.min.js')}}"></script>
-	<!--gmaps Js-->
-	<!-- <script src="{{asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE')}}"></script>
-	<script src="{{asset('js/gmaps.min.js')}}"></script> -->
-	<script src="{{asset('js/main.js')}}"></script>
-	<script>
-		$.ajaxSetup({
-			beforeSend: function(xhr, type) {
-				if (!type.crossDomain) {
-					xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-				}
-			},	
-		});
-	$(document).ready(function(){
-		$('.test-checkbox').click(function() {
-			var arr=$('input:checkbox:checked').map(function() {return ($(this).attr('id'));}).get();
-			// if (arr.length == 0) {
-			// 	var asd = [];
-			// 	arr = asd;
-			// };
-			$.ajax({
-				type:'POST',
-				url:'/ajax',
-				data:{ 
-					'brandAndColor[]': arr,
-				},
-				success: function(result){
-					$('.lattest-product-area').html(result); 
-				}
-			});                                
-		});
-	});
-	</script>
-	<script>
-		$(".show-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-			var show = $(this).val(); 
-			var dataString = "show="+show; 
-			$.ajax({ 
-				type: "POST",
-				url: "/ajaxShow", 
-				data: dataString, 
-				success: function(result){ 
-					$('.lattest-product-area').html(result); 
-				}
-			});
-		});
-	</script>
-	<script>
-		$(".add-to-cart").click(function(){
-			var productId = $(this).attr('data-product');
-			var dataString = "productId="+productId; 
-			$.ajax({ 
-				type: "POST",
-				url: "/ajaxCart", 
-				data: dataString, 
-				success: function(result){
-					if(result.result == 'reload')
-					window.location.href = '/login';
-				}
-			});
-		});
-	</script>
-	<script>
-		var thisCoast = 0;
-		$(".price-choosen-product").each(function() {
-			thisCoast += parseInt($(this).attr('price-of-product'));
-			$('.sub-total').text("$"+thisCoast);
-		});
-		$(".price-choosen-product").change(function(){
-			var count = $(this).attr('count');
-			var number = $(this).val(); 
-			$(this).attr('count',+number);
-
-			var price = $(this).attr('price-of-product');
-			var idOfProduct = $(this).attr('id-of-product');
-
-			var totalCoast = number * price;
-			$('.price-product-'+idOfProduct).text("$"+totalCoast);
-			thisCoast += ((number-count) * price);
-			$('.sub-total').text("$"+thisCoast);
-		});
-	</script>
-	<script>
-		//----- Active No ui slider --------//
-		$.ajax({
-			url: '/rangePrice'
-		}).then(function (result) {
-			// var minPrice = parseFloat(result.min);
-			// var maxPrice = parseFloat(result.max);
-			var minimum = parseInt(result.min);
-			var maximum = parseInt(result.max);
-			$(function(){
-			if(document.getElementById("price-range")){
-				var nonLinearSlider = document.getElementById('price-range');
-				noUiSlider.create(nonLinearSlider, {
-					connect: true,
-					behaviour: 'tap',
-					start: [ 0, maximum ],
-					range: {
-						// Starting at 500, step the value by 500,
-						// until 4000 is reached. From there, step by 1000.
-						'min': [ 0 ],
-						'max': [ maximum ]
-					}
-				});
-				var nodes = [
-					document.getElementById('lower-value'), // 0
-					document.getElementById('upper-value')  // 1
-				];
-				// Display the slider value and how far the handle moved
-				// from the left edge of the slider.
-				nonLinearSlider.noUiSlider.on('update', function ( values, handle, unencoded, isTap, positions ) {
-					nodes[handle].innerHTML = values[handle];
-					var arr = nonLinearSlider.noUiSlider.get();
-					console.log(arr);
-					$.ajax({
-						type:'POST',
-						url:'/ajaxSlider',
-						data:{ 
-							'varPr[]': arr,
-						},
-						success: function(result){
-							$('.lattest-product-area').html(result); 
-						},
-						error: function(err){
-							console.log(err);
-						}
-					});  
-					
-				});
-			}
-		});
-		})
-		
-	</script>
-	<script>
-	$(".sorting-product").change(function(){ /* WHEN YOU CHANGE AND SELECT FROM THE SELECT FIELD */
-			var sort = $(this).val(); 
-			var dataString = "sort="+sort; 
-			$.ajax({ 
-				type: "POST",
-				url: "/ajaxSort", 
-				data: dataString, 
-				success: function(result){ 
-					$('.lattest-product-area').html(result); 
-				},
-				error: function(err){
-					console.log(err);
-				}
-			});
-		});
-	</script>
-	
 </body>
 </html>

@@ -4152,6 +4152,7 @@ label {
   color: #222222;
   margin-bottom: 20px; }
 .review_box p {
+  font-size: 16px;
   margin-bottom: 0px;
   display: inline-block; }
 .review_box .list {
