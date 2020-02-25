@@ -188,6 +188,21 @@
 										<!-- При отправке отзыва произошла ошибка. Пожалуйста, повторите попытку, убедившись в том, что вы заполнили все обязательные поля - * -->
 									</div>
 								</form>
+								<!-- <button id="btn_modal_window">Open Modal</button> -->
+								<form id="testFORM">
+								{{ csrf_field() }}
+								<div id="my_modal" class="modal">
+									<div class="modal_content">
+									<button class="primary-btn close_modal_window" type="submit">Submit Now</button>
+										<!-- <span class="close_modal_window">×</span> -->
+										<p>Модальное окно!</p>
+										<div class="form-group">
+											<textarea class="form-control" name="replyy" id="replyy" rows="1" placeholder="* Review" onfocus="this.placeholder = ''" onblur="this.placeholder = '* Review'"></textarea>
+										</div>
+									</div>
+								</form>
+								<!-- </div> -->
+
 							</div>
 						</div>
 					</div>

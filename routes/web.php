@@ -53,3 +53,5 @@ Route::get('/rangePrice', 'AjaxController@rangePrices');
 Route::post('/ajaxSort', 'AjaxController@sorting');
 
 Route::post('/ajaxLeaveReview', 'AjaxController@leaveReview');
+
+Route::post('/tets', 'AjaxController@tet');

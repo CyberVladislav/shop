@@ -390,7 +390,52 @@
 			});
 		});
 	</script>
+	<script>
+	var modal = document.getElementById("my_modal");
+	var btn = document.getElementById("btn_modal_window");
+	var span = document.getElementsByClassName("close_modal_window")[0];
 
+ btn.onclick = function () {
+    modal.style.display = "block";
+ }
+ 
+ var qwee = $('#btn_modal_window').attr('parnId');
+
+ console.log(qwee);
+	$('#testFORM').on('submit', function (e) {
+	e.preventDefault(); 
+	// span.onclick = function () {
+		var asd = $(this).serialize();
+		var	NonFormValue = qwee;
+			$.ajax({ 
+				type: "POST",
+				url: "/tets", 
+				data: asd + '&NonFormValue=' + NonFormValue,
+				success: function(result){ 
+					// for (step = 0; step < result.count; step++) {
+					// if(result.count>step)	$('.review_item.reply').after(result.all);	
+					// console.log('Идём 1 шаг на восток');
+					// }
+
+					// $('.review_item').after(result);
+						$('.smth').append(result);
+					// $('.review_item.reply').after(result);
+					// console.log(result);
+					// $('.lattest-product-area').html(result); 
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+ 		// };
+	});
+
+ window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+	</script>
 	
 </body>
 </html>

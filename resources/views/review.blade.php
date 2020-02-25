@@ -10,7 +10,7 @@
 				   	@while ($parent->rating-- > 0)
 					   	<i class="fa fa-star"></i>
 			    	@endwhile
-	    			<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
+	    			<a class="reply_btn" parnId="{{$parent->id}}" id="btn_modal_window" href="{{asset('##')}}">Reply</a>
     			</div>
 		</div>
 		<p>{{$parent->description}}</p>
@@ -23,7 +23,7 @@
 				</div>
 				<div class="media-body">
 					<h4>{{$child->user->name}}</h4>
-					<h5>{{ \Carbon\Carbon::parse($parent->created_at)->format('d/m/Y H:i')}}</h5>
+					<h5>{{ \Carbon\Carbon::parse($child->created_at)->format('d/m/Y H:i')}}</h5>
 					<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
 				</div>
 			</div>
