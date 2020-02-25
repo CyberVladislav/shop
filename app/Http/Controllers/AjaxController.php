@@ -7,6 +7,7 @@ use App\Product;
 use App\ProductsOrder;
 use App\Order;
 use App\User;
+use App\Review;
 use Auth;
 
 
@@ -92,6 +93,25 @@ class AjaxController extends Controller
 
         return view('showProducts',[
             'products' => $sortProducts,
+        ]);
+    }
+
+    public function leaveReview(Request $request){        
+        $feedback = new Review;
+        if (Auth::check()){
+            $feedback->user_id = Auth::user()->id;
+            $feedback->parent_id = '0';
+        }
+        else{
+            $feedback->user_id = '8';
+            $feedback->parent_id = '0';
+        }
+        $feedback->rating = $request->rating;    
+        $feedback->description = $request->message;
+        $feedback->save();
+
+        return view('lastReview', [            
+            'parentComment' =>$feedback,
         ]);
     }
 }

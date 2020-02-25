@@ -13,7 +13,7 @@
             @foreach ($element as $page => $url)
                 <!--  Use three dots when current page is greater than 3.  -->
                 @if ($paginator->currentPage() > 3 && $page === 2)
-                    <a class="icon item dis-button"><i class="icon item">...</i></a>
+                    <a class="disable-button-pagin item dis-button"><i class="icon item">...</i></a>
                 @endif
 
                 <!--  Show active page else show the first and last two pages from current page.  -->
