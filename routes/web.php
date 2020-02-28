@@ -54,4 +54,4 @@ Route::post('/ajaxSort', 'AjaxController@sorting');
 
 Route::post('/ajaxLeaveReview', 'AjaxController@leaveReview');
 
-Route::post('/tets', 'AjaxController@tet');
+Route::post('/ajaxFeedbackReply', 'AjaxController@feedbackReply');

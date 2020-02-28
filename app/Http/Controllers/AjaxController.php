@@ -115,9 +115,7 @@ class AjaxController extends Controller
         ]);
     }
 
-    public function tet(Request $request){
-        // $asd = $request->all();
-
+    public function feedbackReply(Request $request){
         $feedback = new Review;
         if (Auth::check()){
             $feedback->user_id = Auth::user()->id;
@@ -125,18 +123,15 @@ class AjaxController extends Controller
         }
         else{
             $feedback->user_id = '8';
-            $feedback->parent_id = $request->NonFormValue;
+            $feedback->parent_id = $request->idOfParentOrChild;
         }
         $feedback->rating = '0';    
         $feedback->description = $request->replyy;
         $feedback->save();
 
-        // $erq = Review::where('id', $erq)->count();
-
-        return view('repl', [            
-            'child' =>$feedback,
-        ]);
-
-        // return $asd;
+        return view('repl',[
+            'child' => $feedback
+            ]);
+        // return response()->json(['html' => view('repl',['child' => $feedback])->render(), 'test' => $idlast]);
     }
 }
