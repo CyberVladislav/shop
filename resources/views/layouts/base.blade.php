@@ -390,7 +390,43 @@
 			});
 		});
 	</script>
+	<script>
+		var modal = document.getElementById("my_modal");
+		var btn = document.getElementById("btn_modal_window");
 
+		$('.btn_modal_window').click(function(){
+			modal.style.display = "block";
+		});
+
+		var idOfParChil = 0;
+		$('.reply_btn').on('click', function(){
+			idOfParChil = $(this).attr("parnId");
+		});
+
+		$('#testFORM').on('submit', function (e) {
+		e.preventDefault();
+		var asd = $(this).serialize();
+			$.ajax({ 
+				type: "POST",
+				url: "/ajaxFeedbackReply", 
+				data: asd + '&idOfParentOrChild=' + idOfParChil,
+				success: function(result){ 
+					var selector = ('div[id=' + idOfParChil +']');
+					$(selector).append(result);
+					$("#testFORM")[0].reset();
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		});
+
+		window.onclick = function (event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+	</script>
 	
 </body>
 </html>

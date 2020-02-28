@@ -114,4 +114,24 @@ class AjaxController extends Controller
             'parentComment' =>$feedback,
         ]);
     }
+
+    public function feedbackReply(Request $request){
+        $feedback = new Review;
+        if (Auth::check()){
+            $feedback->user_id = Auth::user()->id;
+            $feedback->parent_id = '0';
+        }
+        else{
+            $feedback->user_id = '8';
+            $feedback->parent_id = $request->idOfParentOrChild;
+        }
+        $feedback->rating = '0';    
+        $feedback->description = $request->replyy;
+        $feedback->save();
+
+        return view('repl',[
+            'child' => $feedback
+            ]);
+        // return response()->json(['html' => view('repl',['child' => $feedback])->render(), 'test' => $idlast]);
+    }
 }
