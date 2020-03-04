@@ -106,7 +106,9 @@
 	</div>
 
 	<!-- Start related-product Area -->
-	<?php /* @include('dealsOfWeek') */ ?>
+	@if($dealOfWeeks != 'null')
+		@include('dealsOfWeek')
+	@endif
 	<!-- End related-product Area -->
 
 	<!-- Modal Quick Product View -->
