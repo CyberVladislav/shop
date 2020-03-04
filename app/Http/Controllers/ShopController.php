@@ -99,14 +99,16 @@ class ShopController extends Controller
 
     public function productAction($id = null){
         $product = Product::find($id);
-        $count = Review::where('rating','!=', '0') ->count();
-        $avg = Review::where('rating', '!=', '0')->avg('rating', 2);
-        $five = Review::where('rating','=', '5')->count();
-        $four = Review::where('rating','=', '4')->count();
-        $three = Review::where('rating','=', '3')->count();
-        $two = Review::where('rating','=', '2')->count();
-        $one = Review::where('rating','=', '1')->count();
-        $parentComment = Review::where('parent_id', '0')->get();
+        $count = Review::where('rating','!=', '0')->where('product_id', $id) ->count();
+        $avg = Review::where('rating', '!=', '0')->where('product_id', $id)->avg('rating', 2);
+        $five = Review::where('rating','=', '5')->where('product_id', $id)->count();
+        $four = Review::where('rating','=', '4')->where('product_id', $id)->count();
+        $three = Review::where('rating','=', '3')->where('product_id', $id)->count();
+        $two = Review::where('rating','=', '2')->where('product_id', $id)->count();
+        $one = Review::where('rating','=', '1')->where('product_id', $id)->count();
+        $parentComment = Review::where('parent_id', '0')
+                                ->where('product_id', $id)    
+                                ->get();
 
         return view('product', [
             'product' => $product,
@@ -138,23 +140,6 @@ class ShopController extends Controller
 
         ]);
     }
-
-    // public function getAddReview(Request $request){
-    //     $feedback = new Review;
-    //     if (Auth::check()){
-    //         $feedback->user_id = Auth::user()->id;
-    //         $feedback->parent_id = '0';
-    //     }
-    //     else
-    //         $feedback->user_id = '8';
-    //         $feedback->parent_id = '0';
-    //         $feedback->rating = '0';    
-    //         $feedback->description = $request->message;
-
-    //     $feedback->save();
-
-    //     return back();
-    // }
 
     public function getConfirmation(){
         return view('confirmation');

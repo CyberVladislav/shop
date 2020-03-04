@@ -64,19 +64,21 @@ class AjaxController extends Controller
         return back();
     }
 
-    public function priceSlider(){
-        $asd = current($_POST["varPr"]);
-        $zxc = next($_POST["varPr"]);
-        $min = (float)$asd;
-        $max = (float)$zxc;
-        $products = Product::where('price', '>', $min)
-                            ->where('price', '<', $max)
-                            ->paginate(24);
+
+    // Не работает CHOOSEN CATEGORY
+    // public function priceSlider(){
+    //     $asd = current($_POST["varPr"]);
+    //     $zxc = next($_POST["varPr"]);
+    //     $min = (float)$asd;
+    //     $max = (float)$zxc;
+    //     $products = Product::where('price', '>', $min)
+    //                         ->where('price', '<', $max)
+    //                         ->paginate(24);
         
-        return view('showProducts', [
-            'products' => $products,
-        ]);
-    }
+    //     return view('showProducts', [
+    //         'products' => $products,
+    //     ]);
+    // }
 
     public function rangePrices(){
         $minPriceProduct = Product::min('price');
@@ -103,9 +105,10 @@ class AjaxController extends Controller
             $feedback->parent_id = '0';
         }
         else{
-            $feedback->user_id = '8';
+            $feedback->user_id = '4';
             $feedback->parent_id = '0';
         }
+        $feedback->product_id = $request->idProduct;
         $feedback->rating = $request->rating;    
         $feedback->description = $request->message;
         $feedback->save();
@@ -122,9 +125,10 @@ class AjaxController extends Controller
             $feedback->parent_id = '0';
         }
         else{
-            $feedback->user_id = '8';
+            $feedback->user_id = '4';
             $feedback->parent_id = $request->idOfParentOrChild;
         }
+        $feedback->product_id = $request->idOfProduct;
         $feedback->rating = '0';    
         $feedback->description = $request->replyy;
         $feedback->save();

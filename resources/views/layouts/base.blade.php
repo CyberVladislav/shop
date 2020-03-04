@@ -362,17 +362,18 @@
 			$('#contactform').on('submit', function (e) {
     		e.preventDefault();         
 			clearTimeout(timer);
+			var idProduct = $(this).attr("productId");
 			var allData = $(this).serialize();
 				$.ajax({
 					type: 'POST',
 					url: '/ajaxLeaveReview',
-					data: allData,
+					data: allData + "&idProduct=" + idProduct,
 					success: function (data) {
 						if (data) {
 							$('#sendmessage').slideDown(600);
 							timer = setTimeout(function() {
 								$('#sendmessage').slideUp(600);
-							}, 3500);						
+							}, 4000);						
 							$('.comment_list').append(data);
 						} else {
 							$('#senderror').show();
@@ -401,15 +402,17 @@
 		var idOfParChil = 0;
 		$('.reply_btn').on('click', function(){
 			idOfParChil = $(this).attr("parnId");
+			idOfProduct = $(this).attr("productId");
 		});
 
 		$('#testFORM').on('submit', function (e) {
 		e.preventDefault();
 		var asd = $(this).serialize();
+		
 			$.ajax({ 
 				type: "POST",
 				url: "/ajaxFeedbackReply", 
-				data: asd + '&idOfParentOrChild=' + idOfParChil,
+				data: asd + '&idOfParentOrChild=' + idOfParChil + '&idOfProduct=' + idOfProduct,
 				success: function(result){ 
 					var selector = ('div[id=' + idOfParChil +']');
 					$(selector).append(result);

@@ -154,7 +154,7 @@
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Add a Review</h4>
-								<form class="row contact_form" id="contactform"  novalidate="novalidate">
+								<form class="row contact_form" id="contactform" productId="{{$product->id}}" novalidate="novalidate">
 								{{ csrf_field() }}
 										<div class="col mb-3">
 											<p>* Your Rating:</p>
