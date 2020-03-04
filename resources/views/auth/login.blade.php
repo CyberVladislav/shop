@@ -1,6 +1,5 @@
-@extends ('welcome')
+@extends ('layouts.base')
 @section('content')
-
 
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -21,7 +20,7 @@
 	<section class="login_box_area section_gap">
 		<div class="container">
     		<div class="row">
-			   <div class="col-lg-6">
+			    <div class="col-lg-6">
 					<div class="login_box_img">
 						<img class="img-fluid" src="img/login.jpg" alt="">
 						<div class="hover">
@@ -88,5 +87,4 @@
     	</div>
 	</section>
   <!--================End Login Box Area =================-->
-  
 @endsection('content')
