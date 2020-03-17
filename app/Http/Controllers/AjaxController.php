@@ -122,7 +122,7 @@ class AjaxController extends Controller
         $feedback = new Review;
         if (Auth::check()){
             $feedback->user_id = Auth::user()->id;
-            $feedback->parent_id = '0';
+            $feedback->parent_id = $request->idOfParentOrChild;;
         }
         else{
             $feedback->user_id = '4';

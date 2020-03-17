@@ -188,7 +188,7 @@
 										<!-- При отправке отзыва произошла ошибка. Пожалуйста, повторите попытку, убедившись в том, что вы заполнили все обязательные поля - * -->
 									</div>										
 								</form>
-								<form id="testFORM">
+								<!-- <form id="testFORM">
 								{{ csrf_field() }}
 									<div id="my_modal" class="modal">
 										<div class="modal_content">
@@ -200,7 +200,7 @@
 											</div>
 										</div>
 									</div>
-								</form>
+								</form> -->
 							</div>
 						</div>
 					</div>

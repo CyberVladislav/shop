@@ -391,7 +391,7 @@
 			});
 		});
 	</script>
-	<script>
+	<!-- <script>
 		var modal = document.getElementById("my_modal");
 		var btn = document.getElementById("btn_modal_window");
 
@@ -429,7 +429,40 @@
 				modal.style.display = "none";
 			}
 		};
+	</script> -->
+	<script>
+		var idOfParChil = 0;
+		var chldId = 0;
+			$('.reply_btn').on('click', function(){
+				idOfParChil = $(this).attr("parnId");
+				idOfProduct = $(this).attr("productId");
+				var selector = ('div[testId=' + idOfParChil +']');
+				chldId = $(this).attr("chldId");
+				if(typeof(chldId) != "undefined" && chldId !== null) {
+					var selector = ('div[chldId=' + chldId +']');
+				}
+			// var node = '<input id="textfield_" type="text" name="textfield" />';
+			var node = '<form id="testFORM">{{ csrf_field() }}<textarea class="form-control mb-2" name="textfield" id="textfield_" rows="2"></textarea> <button class="primary-btn-test close_modal_window" id="sendButton" type="submit">Submit Now</button></form>';
+			$(selector).append(node);
+			console.log("parnId"+idOfParChil);
+			console.log("chldId"+chldId);
+			});
+			$('#testFORM').on('submit', function (event) {
+				event.preventDefault();
+				
+				var asd = $(this).serialize();
+				console.log(asd);
+			})
 	</script>
-	
+	<!-- <script>
+		$(document).ready(function () {
+			$('#testFORM').on('submit', function (event) {
+				event.preventDefault();
+				
+				var asd = $(this).serialize();
+				console.log(asd);
+			})
+		});
+	</script> -->
 </body>
 </html>
