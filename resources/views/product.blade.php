@@ -10,7 +10,7 @@
 					<nav class="d-flex align-items-center">
 						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
 						<a href="{{asset('category')}}">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{asset('product/'.$product->id)}}">{{$product->name}}</a>
+						<a href="{{asset('product/'.$product->id)}}">{{$product->brand}} {{$product->name}}</a>
 					</nav>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>{{$product->name}}</h3>
+						<h3>{{$product->brand}} {{$product->name}}</h3>
 						<h2>${{$product->price}}</h2>
 						<ul class="list">
 							<li><a class="active"  href="{{asset('category')}}"><span>Category</span></a> : <a class="active">Household</a></li>
@@ -188,19 +188,7 @@
 										<!-- При отправке отзыва произошла ошибка. Пожалуйста, повторите попытку, убедившись в том, что вы заполнили все обязательные поля - * -->
 									</div>										
 								</form>
-								<!-- <form id="testFORM">
-								{{ csrf_field() }}
-									<div id="my_modal" class="modal">
-										<div class="modal_content">
-										<button class="primary-btn close_modal_window" type="submit">Submit Now</button>
-											<!-- <span class="close_modal_window">×</span> -->
-											<p>Модальное окно!</p> 
-											<div class="form-group">
-												<textarea class="form-control" name="replyy" id="replyy" rows="1" placeholder="* Review" onfocus="this.placeholder = ''" onblur="this.placeholder = '* Review'"></textarea>
-											</div>
-										</div>
-									</div>
-								</form> -->
+								
 							</div>
 						</div>
 					</div>
