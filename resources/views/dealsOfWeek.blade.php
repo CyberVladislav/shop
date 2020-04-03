@@ -17,8 +17,9 @@
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="single-related-product d-flex">
 									<a href="{{asset('product/'.$dealOfWeek->id)}}"><img src="{{$dealOfWeek->image}}" width='70' height='70' alt=""></a>
-									<div class="desc">
-										<a href="{{asset('product/'.$dealOfWeek->id)}}" class="title">{{$dealOfWeek->name}}</a>
+									<div class="desc" style="margin: 1px 0px 10px 15px;">
+										<a href="{{asset('product/'.$dealOfWeek->id)}}" class="title">{{$dealOfWeek->brand}}</a>
+										<a href="{{asset('product/'.$dealOfWeek->id)}}" class="title" style="display: flex;">{{$dealOfWeek->name}}</a>
 										<div class="price">
 											<h6>${{$dealOfWeek->price}}</h6>
 											<h6 class="l-through">$210.00</h6>

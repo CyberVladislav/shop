@@ -1,6 +1,6 @@
 @foreach ($parentComment as $parent)
 	<div class="review_item" id="{{$parent->id}}" >
-		<div>
+		<div testId="{{$parent->id}}">
 			<div class="media">
 				<div class="d-flex">
 					<img src="{{asset('img/product/review-1.png')}}" alt="">
@@ -17,7 +17,7 @@
 			<p>{{$parent->description}}</p>
 		</div>
 		@foreach($parent->childComments() as $child)
-			<div class="review_item reply mt-3">
+			<div class="review_item reply mt-3" chldId="{{$child->id}}">
 				<div class="media">
 					<div class="d-flex">
 						<img src="{{asset('img/product/review-2.png')}}" alt="">
@@ -25,7 +25,7 @@
 					<div class="media-body">
 						<h4>{{$child->user->name}}</h4>
 						<h5>{{ \Carbon\Carbon::parse($child->created_at)->format('d/m/Y H:i')}}</h5>
-						<a class="reply_btn btn_modal_window" productId="{{$parent->product->id}}" parnId="{{$parent->id}}" href="{{asset('##')}}">Reply</a>
+						<a class="reply_btn btn_modal_window" chldId="{{$child->id}}" productId="{{$parent->product->id}}" parnId="{{$parent->id}}" href="{{asset('##')}}">Reply</a>
 					</div>
 				</div>
 				<p>{{$child->description}}</p>
