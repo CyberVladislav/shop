@@ -21,6 +21,9 @@ class RedirectIfAuthenticated
             return redirect('/home');
         }
 
+        // $url = $_SERVER['REQUEST_URI'];  ИСКЛЮИТЬ ВОЗМОЖНОСТЬ ПЕРЕХОДА НА /REGISTER ИЗ АДРЕСА 
+        // if ($url == '/register') return redirect('/contact');    
+
         return $next($request);
     }
 }

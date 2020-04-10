@@ -217,5 +217,6 @@
 	<script src="{{asset('js/custom/sorting.js')}}"></script>
 	<script src="{{asset('js/custom/addToCart.js')}}"></script>
 	<script src="{{asset('js/custom/cartCostProduct.js')}}"></script>
+	<script src="{{asset('js/custom/register.js')}}"></script>
 </body>
 </html>
