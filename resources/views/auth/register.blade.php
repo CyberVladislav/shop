@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel-default">
     <div class="panel-body">
         <form class="registr_form">
         {{ csrf_field() }}

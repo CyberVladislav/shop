@@ -55,3 +55,9 @@ Route::post('/ajaxSort', 'AjaxController@sorting');
 Route::post('/ajaxLeaveReview', 'AjaxController@leaveReview');
 
 Route::post('/ajaxFeedbackReply', 'AjaxController@feedbackReply');
+ 
+Route::get('/search','SearchController@search');
+ 
+Route::get('/product/{id}','SearchController@viewProduct');
+ 
+Route::post('/find','SearchController@find');
