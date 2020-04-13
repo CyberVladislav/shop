@@ -54,7 +54,7 @@
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="{{ ($url=='/') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-							<li class="{{ ($url=='/category') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('category') }}">Catalog</a></li>
+							<li class="{{ ($url=='/category') || ($url=='/find') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('category') }}">Catalog</a></li>
 							<li class="{{ ($url=='/blog' || $url=='/singleBlog') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Blog</a>
@@ -93,21 +93,36 @@
                         </form>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item"><a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
-							<li class="nav-item">
-								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+							<li class="nav-item ml-0">
+								<form class="d-flex" action="{{ URL::to('find') }}" method="POST">
+								{{ csrf_field() }}
+									<input type="text" name="search" class="form-control js-search-input" id="search_input" placeholder="Search Here" 
+										style="height: 35px; margin: 1.5rem 0.5rem 1.5rem 1.5rem;" autocomplete="off">
+									<button class="search"><span class="lnr lnr-magnifier"></span></button>
+								</form>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
 		</div>
-		<div class="search_input" id="search_input_box">
-			<div class="container">
+		<!-- <div class="search_input" id="search_input_box">
+			<div class="container d-flex justify-content-end">
 				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<input type="text" name="search" class="form-control js-search-input" id="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+					<span class="lnr lnr-magnifier p-3"></span>
+					</button>
 				</form>
+			</div>
+		</div> -->
+		<div class="js-searchResult">
+			<div id="searchResult" class="panel panel-default" style="width:266px; position:absolute; left:984px; top:62px; z-index:1; display:none">
+				<ul style="display: block;list-style-type: disc;margin-block-start: 1em;margin-block-end: 1em;
+				margin-inline-start: 0px;margin-inline-end: 0px;padding-inline-start: 40px; list-style-type: none;" id="searchList">
+
+				</ul>
 			</div>
 		</div>
 	</header>
@@ -218,5 +233,6 @@
 	<script src="{{asset('js/custom/addToCart.js')}}"></script>
 	<script src="{{asset('js/custom/cartCostProduct.js')}}"></script>
 	<script src="{{asset('js/custom/register.js')}}"></script>
+	<script src="{{asset('js/custom/search.js')}}"></script>
 </body>
 </html>
