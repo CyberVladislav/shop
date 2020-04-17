@@ -11,135 +11,22 @@ $(document).ready(function () {
             success: function (data) {
                 window.location.href = '/';
             },
-            error: function (error) {
-                var statusCode = error.responseText;
-                console.log(statusCode);
-                if((statusCode.includes('The name field is required') == true) && (statusCode.includes('The email field is required') == true) 
-                && (statusCode.includes('The password must be at least 6 characters') == true) && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").show().html("The Name field is required.");
-                    $("#js-help-email").show().html("The Email field is required.");
-                    $("#js-help-password").show().html("The Password must be at least 6 characters. The Password confirmation does not match.");
+            error: function (xhr, error) {
+                var err = JSON.parse(xhr.responseText);
+                var errName = err.errors['name'];
+                var errEmail = err.errors['email'];
+                var errPassword = err.errors['password'];
+                if(typeof(errPassword) != "undefined" && errPassword !== null) {
                     $(".js-register-password").val('');
                     $(".js-register-password-confirm").val('');
+                    $("#js-help-error-box").html(errPassword);
                 }
-                else if ((statusCode.includes('The name field is required') == true) && (statusCode.includes('The email field is required') == true) 
-                && (statusCode.includes('The password field is required') == true))
-                {
-                    $("#js-help-name").show().html("The Name field is required.");
-                    $("#js-help-email").show().html("The Email field is required.");
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password-confirm").val('');
+                if(typeof(errEmail) != "undefined" && errEmail !== null) {
+                    $("#js-help-error-box").html(errEmail);
                 }
-                else if ((statusCode.includes('The name field is required') == true) && (statusCode.includes('The email must be a valid email address') == true) 
-                && (statusCode.includes('The password field is required') == true))
-                {	
-                    $("#js-help-name").show().html("The Name field is required.");
-                    $("#js-help-email").show().html("The email must be a valid email address.");
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password-confirm").val('');
-                }
-                else if((statusCode.includes('The name field is required') == true) && (statusCode.includes('The password must be at least 6 characters') == true) 
-                && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").show().html("The Name field is required.");
-                    $("#js-help-email").hide();
-                    $("#js-help-password").show().html("The Password must be at least 6 characters. The Password confirmation does not match.");
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else if((statusCode.includes('The email has already been taken') == true) && (statusCode.includes('The password must be at least 6 characters') == true) 
-                && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The Email has already been taken.");
-                    $("#js-help-password").show().html("The password must be at least 6 characters. sdfsdfsdfsThe Password confirmation does not match.");
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else if ((statusCode.includes('The email field is required') == true) && (statusCode.includes('The password field is required') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The Email field is required.");
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password-confirm").val('');
+                if(typeof(errName) != "undefined" && errName !== null) {
+                    $("#js-help-error-box").html(errName);
                 }                
-                else if((statusCode.includes('The email must be a valid email address') == true) && (statusCode.includes('The password field is required') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The email must be a valid email address.");
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password-confirm").val('');
-                }
-                else if ((statusCode.includes('The email has already been taken') == true) && (statusCode.includes('The password field is required') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The Email has already been taken.");
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password-confirm").val('');
-                }
-                else if((statusCode.includes('The email field is required') == true) && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The Email field is required.");
-                    $("#js-help-password").show().html("The Password confirmation does not match.");
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else if ((statusCode.includes('The email has already been taken') == true) && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The Email has already been taken.");                    
-                    $("#js-help-password").show().html("The Password confirmation does not match.");
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else if((statusCode.includes('The email must be a valid email address') == true) && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The email must be a valid email address.");
-                    $("#js-help-password").show().html("The Password confirmation does not match.");
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else if((statusCode.includes('The password must be at least 6 characters') == true) && (statusCode.includes('The password confirmation does not match') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").hide();
-                    $("#js-help-password").show().html("The Password must be at least 6 characters. The Password confirmation does not match.");
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else if ((statusCode.includes('The name field is required') == true) && (statusCode.includes('The password field is required') == true))
-                {
-                    $("#js-help-name").show().html("The Name field is required.");
-                    $("#js-help-email").hide();
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password").val('');                    
-                    $(".js-register-password-confirm").val('');
-                }
-                else if((statusCode.includes('The password field is required') == true))
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").hide();
-                    $("#js-help-password").show().html("The Password field is required.");
-                    $(".js-register-password").val('');                    
-                    $(".js-register-password-confirm").val('');
-                }                                                               
-                else if (statusCode.includes('The email has already been taken') == true)
-                {
-                    $("#js-help-name").hide();
-                    $("#js-help-email").show().html("The Email has already been taken.");            
-                    $(".js-register-password").val('');
-                    $(".js-register-password-confirm").val('');
-                }
-                else{
-                    $("#js-help-name").hide();
-                    $("#js-help-email").hide();
-                    $("#js-help-password").show().html("The Password confirmation does not match.");
-                    $(".js-register-password").val('');                    
-                    $(".js-register-password-confirm").val('');
-                };
             }
         });
     });
