@@ -68,7 +68,7 @@
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="{{ ($url=='/tracking') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('tracking') }}">Tracking</a></li>
-									<li class="{{ ($url=='/elements') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li>
+									<!-- <li class="{{ ($url=='/elements') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li> -->
 								</ul>
 							</li>
 							<li class="{{ ($url=='/contact') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
@@ -92,7 +92,16 @@
                                             {{ csrf_field() }}
                         </form>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item">
+							@if (Auth::check())
+								@if (!$emptyCart)
+									<a href="##" class="cart" data-toggle="modal" data-target="#emptyCartModal" onClick="RedirectToCategory()"><span class="ti-bag"></span></a></li>
+								@else 
+									<a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
+								@endif
+							@else 
+								<a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
+							@endif
 							<li class="nav-item ml-0">
 								<form class="d-flex" action="{{ URL::to('find') }}" method="POST">
 								{{ csrf_field() }}
@@ -106,19 +115,8 @@
 				</div>
 			</nav>
 		</div>
-		<!-- <div class="search_input" id="search_input_box">
-			<div class="container d-flex justify-content-end">
-				<form class="d-flex justify-content-between">
-					<input type="text" name="search" class="form-control js-search-input" id="search_input" placeholder="Search Here">
-					<button type="submit" class="btn"></button>
-					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-					<span class="lnr lnr-magnifier p-3"></span>
-					</button>
-				</form>
-			</div>
-		</div> -->
 		<div class="js-searchResult">
-			<div id="searchResult" class="panel panel-default" style="width:266px; position:absolute; left:984px; top:62px; z-index:1; display:none">
+			<div id="searchResult" class="panel panel-default" style="width:266px; position:absolute; left:984px; top:62px; z-index:1; display:none; overflow: auto;max-height: 213px;">
 				<ul style="display: block;list-style-type: disc;margin-block-start: 1em;margin-block-end: 1em;
 				margin-inline-start: 0px;margin-inline-end: 0px;padding-inline-start: 40px; list-style-type: none;" id="searchList">
 
@@ -209,6 +207,17 @@
 		</div>
 	</footer>
 	<!-- End footer Area -->
+	<!-- Modal empty cart -->
+	<div class="modal fade" id="emptyCartModal" tabindex="-1" role="dialog" aria-labelledby="emptyCartModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5 ">
+						Your cart is empty.<br>Please, choose & add the product.
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End modal empty cart -->
 	<script src="{{asset('js/vendor/jquery-2.2.4.min.js')}}"></script>
 	<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')}}" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
@@ -225,14 +234,24 @@
 	<script src="{{asset('js/gmaps.min.js')}}"></script> -->
 	<script src="{{asset('js/main.js')}}"></script>
 	<script src="{{asset('js/custom/brandColor.js')}}"></script>
-	<script src="{{asset('js/custom/cartCostProduct.js')}}"></script>
-	<script src="{{asset('js/custom/showNumProduct.js')}}"></script>
-	<script src="{{asset('js/custom/priceSlider.js')}}"></script>							
-	<script src="{{asset('js/custom/replyButton.js')}}"></script>
-	<script src="{{asset('js/custom/sorting.js')}}"></script>
 	<script src="{{asset('js/custom/addToCart.js')}}"></script>
 	<script src="{{asset('js/custom/cartCostProduct.js')}}"></script>
-	<script src="{{asset('js/custom/register.js')}}"></script>
+	<script src="{{asset('js/custom/leaveReview.js')}}"></script>
+	<script src="{{asset('js/custom/priceSlider.js')}}"></script>
+	<script src="{{asset('js/custom/register.js')}}"></script>							
+	<script src="{{asset('js/custom/replyButton.js')}}"></script>
 	<script src="{{asset('js/custom/search.js')}}"></script>
+	<script src="{{asset('js/custom/showNumProduct.js')}}"></script>
+	<script src="{{asset('js/custom/sorting.js')}}"></script>
+	<script>
+		function RedirectToCategory() {
+			setTimeout("location.href = '/category';",1200);
+		}
+	</script>
+	<script>
+	$('#registerModal').on('shown.bs.modal', function() {
+		$(this).find('[autofocus]').focus();
+	});
+	</script>
 </body>
 </html>

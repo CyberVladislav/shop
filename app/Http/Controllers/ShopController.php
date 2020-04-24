@@ -94,11 +94,10 @@ class ShopController extends Controller
             $numbOfOrderProducts = $orderNumber->products;
         }
         else 
-            return redirect('/category'); //окно "Вы не авторизованы, войдите для добавления товара в корзину"
+            return redirect('/login'); //окно "Вы не авторизованы, войдите для добавления товара в корзину"
 
         return view('cart', [
             'numbOfOrderProducts' =>$numbOfOrderProducts,
-
         ]);
     }
 

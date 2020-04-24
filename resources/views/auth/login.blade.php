@@ -26,7 +26,7 @@
 						<div class="hover">
 							<h4>New to our website?</h4>
 							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="primary-btn" data-toggle="modal" data-target="#exampleModal" style="color: #fff;">Create an Account</a>
+							<a class="primary-btn" data-toggle="modal" data-target="#registerModal" style="color: #fff;">Create an Account</a>
 						</div>
 					</div>
 				</div>  
@@ -88,11 +88,11 @@
 	</section>
   <!--================End Login Box Area =================-->
   <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title w-100 text-center p-0" id="exampleModalLabel">REGISTRATION FORM</h5>
+                <h5 class="modal-title w-100 text-center p-0" id="registerModalLabel">REGISTRATION FORM</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

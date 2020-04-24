@@ -1,6 +1,6 @@
 @foreach ($parentComment as $parent)
 	<div class="review_item" id="{{$parent->id}}" >
-		<div testId="{{$parent->id}}">
+		<div appenId="{{$parent->id}}">
 			<div class="media">
 				<div class="d-flex">
 					<img src="{{asset('img/product/review-1.png')}}" alt="">

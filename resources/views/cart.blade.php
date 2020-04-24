@@ -91,9 +91,9 @@
                                 <a class="gray_btn" href="#">Close Coupon</a>
                         </div>
                     </div>
-                    <div class="col-md-3 row py-xl-3">
-                        <h5>Subtotal</h5>
-                        <div class="ml-auto">
+                    <div class="col-md-3 d-flex py-xl-3 align-items-center" >
+                        <h5 class="ml-3">Subtotal</h5>
+                        <div class="ml-5">
                             <h5 class="sub-total"></h5>
                         </div>
                     </div>

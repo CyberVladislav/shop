@@ -16,7 +16,7 @@ $(document).ready(function(){
 $(document).mouseup(function (e){
     var container = $(".js-search-input");
     var searchResult = $(".js-searchResult");
-    if (!container.is(e.target) && container.has(e.target).length === 0){
+    if (!container.is(e.target) && container.has(e.target).length === 0 && !searchResult.is(e.target) && searchResult.has(e.target).length === 0 ){
         searchResult.fadeOut();
     }
     else searchResult.fadeIn();

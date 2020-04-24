@@ -22,7 +22,7 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="img/banner/nike-air-force-1-CD0884-101-1.png" alt="">
+									<img class="img-fluid" src="img/background/nike-air-force-1-CD0884-101-1.png" alt="">
 								</div>
 							</div>
 						</div>
@@ -42,7 +42,7 @@
 							</div>
 							<div class="col-lg-7">
 								<div class="banner-img">
-									<img class="img-fluid" src="img/banner/Nike-Air-Force-1-Low-City-Of-Dreams-CT8441-001-3.png" alt="">
+									<img class="img-fluid" src="img/background/Nike-Air-Force-1-Low-City-Of-Dreams-CT8441-001-3.png" alt="">
 								</div>
 							</div>
 						</div>
