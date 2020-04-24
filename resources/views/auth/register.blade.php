@@ -3,7 +3,7 @@
         <form class="registr_form">
         {{ csrf_field() }}
 		    <div class="form-group">
-	            <input id="register_name" type="text" class="form-control js-register-name" name="register_name" placeholder="Name" value="{{ old('register_name') }}"  required autofocus>
+	            <input id="register_name" type="text" class="form-control js-register-name" name="register_name" placeholder="Name" value="{{ old('register_name') }}" required autofocus autocomplete="false">
             </div>
             <div class="form-group">
                 <input id="register_email" type="email" class="form-control js-register-email" name="register_email" placeholder="E-Mail Address" value="{{ old('register_email') }}" required>

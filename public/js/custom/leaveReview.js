@@ -11,6 +11,7 @@ $(document).ready(function () {
             data: allData + "&idProduct=" + idProduct,
             success: function (data) {
                 if (data) {
+                    $('#senderror').hide();
                     $('#sendmessage').slideDown(600);
                     timer = setTimeout(function() {
                         $('#sendmessage').slideUp(600);
@@ -22,6 +23,7 @@ $(document).ready(function () {
                 $("#contactform")[0].reset();
             },
             error: function () {
+                $('#sendmessage').hide();
                 $('#senderror').slideDown(600);
                 timer = setTimeout(function() {
                     $('#senderror').slideUp(600);
