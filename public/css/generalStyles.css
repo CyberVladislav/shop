@@ -75,7 +75,6 @@
 
 .single-product:hover {
     transform: scale(1.05);
-    border:1px groove transparent;
 }
 
 .panel-body .form-group input {
@@ -105,3 +104,56 @@
     border-color: #ddd;
 }
 
+.inputTN {
+    position: relative;
+  }
+  
+  .inputTN__input {
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-right: 20px;
+    border: 1px solid #d0c4db;
+    outline: none;
+    width: 77px;
+    height: 33px;
+    transition: .2s;
+  }
+  
+  .inputTN:hover .inputTN__input,
+  .inputTN:focus .inputTN__input {
+    border-color: #888;
+  }
+  
+  .inputTN__top {
+    width: 0px;
+    border: 7px solid transparent;
+    border-bottom: 12px solid #d0c4db;
+    position: absolute;
+    top: -3%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+  }
+  
+  .inputTN__top:hover{
+    border-bottom-color: #888;
+  }
+  
+  .inputTN__bottom {
+    width: 0px;
+    border: 7px solid transparent;
+    border-top: 12px solid #d0c4db;
+    position: absolute;
+    top: 61%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+  }
+  
+  .inputTN__bottom:hover {
+    border-top-color: #888;
+  }
+
+  .modal-button .primary-btn {
+    line-height: 34px;
+    text-transform: none;}

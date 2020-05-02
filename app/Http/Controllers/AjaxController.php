@@ -9,7 +9,7 @@ use App\Order;
 use App\User;
 use App\Review;
 use Auth;
-
+use App\Http\Requests\CartBillingRequest;
 
 class AjaxController extends Controller
 {
@@ -36,32 +36,37 @@ class AjaxController extends Controller
     }
 
     public function cart(Request $request){
-
-        if (!(Auth::check())){
-            return array('result' => 'reload');
-        }
-        else{
-            $searchNeedOrder = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
-            if (isset ($searchNeedOrder)){
-                $helpTable = new ProductsOrder;
-                $helpTable->product_id = $request->input('productId');
-                $helpTable->order_id = $searchNeedOrder->id;
-                $helpTable->save();
-            }
+        $idProduct = $request->input('productId');
+        $searchNeedOrder = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
+        if (isset ($searchNeedOrder)){
+            $orderId = $searchNeedOrder->id;
+            $thatProduct = ProductsOrder::whereProduct_idAndOrder_id($idProduct, $orderId)->first();
+            if(isset($thatProduct)){
+                $productCount = $thatProduct->count;
+                $thatProduct->count = $request->input('count') + $productCount;
+                $thatProduct->save();
+            }    
             else{
                 $helpTable = new ProductsOrder;
-                $orderTable = new Order;
-                    
-                $orderTable->user_id = Auth::user()->id;
-                $orderTable->status = 'load';
-                $orderTable->save();
-
-                $helpTable->product_id = $request->input('productId');
-                $helpTable->order_id = $orderTable->id;
+                $helpTable->product_id = $idProduct;
+                $helpTable->order_id = $searchNeedOrder->id;
+                $helpTable->count = $request->input('count'); 
                 $helpTable->save();
             }
         }
-        return back();
+        else{
+            $helpTable = new ProductsOrder;
+            $orderTable = new Order;
+            
+            $orderTable->user_id = Auth::user()->id;
+            $orderTable->status = 'load';
+            $orderTable->save();
+
+            $helpTable->product_id = $idProduct;
+            $helpTable->order_id = $orderTable->id;
+            $helpTable->count = $request->input('count');  
+            $helpTable->save();
+        }
     }
 
 
@@ -138,6 +143,30 @@ class AjaxController extends Controller
         return view('repl',[
             'child' => $feedback
             ]);
-        // return response()->json(['html' => view('repl',['child' => $feedback])->render(), 'test' => $idlast]);
+    }
+
+    public function billing(CartBillingRequest $request)
+    {
+        $addressInfo = Order::whereStatusAndUser_id('load', Auth::user()->id)->first();
+        $addressInfo->status = 'send';
+        $addressInfo->firstName = $request->input('firstName');
+        $addressInfo->lastName = $request->input('lastName');
+        $addressInfo->phone = $request->input('phone');    
+        $addressInfo->postcode = $request->input('postcode');  
+        $addressInfo->address = $request->input('address');    
+        $addressInfo->city = $request->input('city');      
+        $addressInfo->note = $request->input('notes');   
+        $addressInfo->save();
+    }
+
+    public function deleteProduct(Request $request){
+        $orderId = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first()->id;
+        $productId = $request->idProduct;
+        ProductsOrder::whereOrder_idAndProduct_id($orderId, $productId)->delete();
+        $qwe = ProductsOrder::where('order_id', $orderId)->first();
+        if (!isset($qwe)){
+            Order::whereUser_idAndStatus(Auth::user()->id, 'load')->delete();
+            return array('isEmpty' => 'empty');
+        } 
     }
 }

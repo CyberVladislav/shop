@@ -50,16 +50,20 @@
 							<li><a><span>Availibility</span> : In Stock</a></li>
 						</ul>
 						<p>{{$product->description}}</p>
-						<div class="product_count">
-							<label for="qty">Quantity:</label>
-							<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
-							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						<div class="product_count d-flex align-items-center">
+							<div class="mr-2">Quantity: </div>								
+                            <div class="inputTN">
+                                <input class="inputTN__input js-singleProduct-count" type="text" pattern="^[0-9]+$" value="1">
+                                <div class="inputTN__top" ></div>
+                                <div class="inputTN__bottom"></div>
+                            </div>                                    
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn add-to-cart" data-product="{{$product->id}}" href="{{asset('##')}}">Add to Cart</a>
+						@if (Auth::check())
+							<a class="primary-btn add-to-cart" href="##" data-product="{{$product->id}}" data-toggle="modal" data-target="#productAddUserModal">Add to Cart</a>
+						@else
+							<a class="primary-btn" href="##" data-toggle="modal" data-target="#productAddGuestModal">Add to Cart</a>
+						@endif
 							<a class="icon_btn"  href="{{asset('#')}}"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn"  href="{{asset('#')}}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
@@ -334,4 +338,34 @@
 		</div>
 	</section>
 	<!-- End related-product Area -->
+	<!-- User modal product add -->
+	<div class="modal fade" id="productAddUserModal" tabindex="-1" role="dialog" aria-labelledby="productAddUserModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5 ">
+					You add the product.<br>Would you like to continue viewing products or go to the shopping cart?.
+					<div class="modal-button mt-3">
+						<button type="button" class="primary-btn" data-dismiss="modal" aria-label="Close">Continue viewing </button>
+						<button type="button" class="primary-btn" onClick="redirectToCart()">Shopping cart</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End user modal product add -->
+<!-- Guest modal product add -->
+<div class="modal fade" id="productAddGuestModal" tabindex="-1" role="dialog" aria-labelledby="productAddGuestModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5 ">
+					To add the product you should be autorized.<br>Would you like to continue viewing products or go to login?.
+					<div class="modal-button mt-3">
+						<button type="button" class="primary-btn" data-dismiss="modal" aria-label="Close">Continue viewing </button>
+						<button type="button" class="primary-btn" onClick="redirectToLogin()">Go to login/register</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End guest modal product add -->
 @endsection('content')

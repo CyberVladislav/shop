@@ -61,3 +61,7 @@ Route::get('/search','SearchController@search');
 Route::get('/product/{id}','SearchController@viewProduct');
  
 Route::post('/find','SearchController@find');
+
+Route::post('/billing','AjaxController@billing');
+
+Route::post('/deleteProduct','AjaxController@deleteProduct');

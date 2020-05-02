@@ -1,14 +1,16 @@
 $(document).ready(function () {
     $(".add-to-cart").click(function(){
         var productId = $(this).attr('data-product');
-        var dataString = "productId="+productId; 
+        var count = $('.js-singleProduct-count').val();
+        var dataString = "productId=" + productId + "&count=" + count;  
         $.ajax({ 
             type: "POST",
             url: "/ajaxCart", 
             data: dataString, 
             success: function(result){
-                if(result.result == 'reload')
-                window.location.href = '/login';
+                $('.js-singleProduct-count').val('1');
+                $('.js-cart-order').removeClass('d-none');
+                $('.js-cart-no-order').addClass('d-none');
             }
         });
     });
