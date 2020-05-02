@@ -7,6 +7,7 @@ use App\Contact;
 use App\Review;
 use App\User;
 use App\Order;
+use App\ProductsOrder;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -89,15 +90,12 @@ class ShopController extends Controller
     } 
 
     public function getCart(){
-        if (Auth::check()){
-            $orderNumber = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
-            $numbOfOrderProducts = $orderNumber->products;
-        }
-        else 
-            return redirect('/login'); //окно "Вы не авторизованы, войдите для добавления товара в корзину"
+        $orderNumber = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
+        if (!isset($orderNumber)) return redirect('/');
+        $numbOfOrderProducts = $orderNumber->products;
 
         return view('cart', [
-            'numbOfOrderProducts' =>$numbOfOrderProducts,
+            'numbOfOrderProducts' => $numbOfOrderProducts,
         ]);
     }
 

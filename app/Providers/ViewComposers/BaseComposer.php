@@ -12,8 +12,8 @@ class BaseComposer{
     $url = $_SERVER['REQUEST_URI'];
     $view->with('url', $url);
         if (Auth::check()){
-            $emtpyCart = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first(); 
-            $view->with('emptyCart', $emtpyCart);;
+            $fullCart = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first(); 
+            $view->with('fullCart', $fullCart);
         }
     }
 }

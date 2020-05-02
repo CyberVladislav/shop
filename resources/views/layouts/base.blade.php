@@ -94,13 +94,10 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li class="nav-item">
 							@if (Auth::check())
-								@if (!$emptyCart)
-									<a href="##" class="cart" data-toggle="modal" data-target="#emptyCartModal" onClick="RedirectToCategory()"><span class="ti-bag"></span></a></li>
-								@else 
-									<a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
-								@endif
+								<a href="{{asset('cart')}}" class="cart js-cart-order {{!$fullCart ? 'd-none' : ''}}"><span class="ti-bag"></span></a>
+								<a href="##" class="cart js-cart-no-order {{$fullCart ? 'd-none' : ''}}" data-toggle="modal" data-target="#emptyCartModal" onClick="redirectToCategory()"><span class="ti-bag"></span></a></li>
 							@else 
-								<a href="{{asset('cart')}}" class="cart"><span class="ti-bag"></span></a></li>
+								<a href="##" class="cart" data-toggle="modal" data-target="#guestCartModal"><span class="ti-bag"></span></a></li>
 							@endif
 							<li class="nav-item ml-0">
 								<form class="d-flex" action="{{ URL::to('find') }}" method="POST">
@@ -217,7 +214,22 @@
 			</div>
 		</div>
 	</div>
-<!-- End modal empty cart -->
+	<!-- End modal empty cart -->
+	<!-- Guest modal cart -->
+	<div class="modal fade" id="guestCartModal" tabindex="-1" role="dialog" aria-labelledby="guestCartModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5">
+					To see the cart you should be autorized.<br>Would you like to continue viewing products or go to login?.
+					<div class="modal-button mt-3">
+						<button type="button" class="primary-btn" data-dismiss="modal" aria-label="Close">Continue viewing </button>
+						<button type="button" class="primary-btn" onClick="redirectToLogin()">Go to login/register</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End guest modal cart -->
 	<script src="{{asset('js/vendor/jquery-2.2.4.min.js')}}"></script>
 	<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')}}" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
@@ -235,7 +247,9 @@
 	<script src="{{asset('js/main.js')}}"></script>
 	<script src="{{asset('js/custom/brandColor.js')}}"></script>
 	<script src="{{asset('js/custom/addToCart.js')}}"></script>
+	<script src="{{asset('js/custom/billingInfo.js')}}"></script>
 	<script src="{{asset('js/custom/cartCostProduct.js')}}"></script>
+	<script src="{{asset('js/custom/deleteProductCart.js')}}"></script>
 	<script src="{{asset('js/custom/leaveReview.js')}}"></script>
 	<script src="{{asset('js/custom/priceSlider.js')}}"></script>
 	<script src="{{asset('js/custom/register.js')}}"></script>							
@@ -244,8 +258,18 @@
 	<script src="{{asset('js/custom/showNumProduct.js')}}"></script>
 	<script src="{{asset('js/custom/sorting.js')}}"></script>
 	<script>
-		function RedirectToCategory() {
+		function redirectToCategory() {
 			setTimeout("location.href = '/category';",1200);
+		}
+	</script>
+	<script>
+		function redirectToCart() {
+			location.href = '/cart';
+		}
+	</script>
+	<script>
+		function redirectToLogin() {
+			location.href = '/login';
 		}
 	</script>
 	<script>
