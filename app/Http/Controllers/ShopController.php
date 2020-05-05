@@ -27,7 +27,7 @@ class ShopController extends Controller
             $dealOfWeeks = 'null';
 
         return view('main', [
-        'dealOfWeeks' => $dealOfWeeks
+        'dealOfWeeks' => $dealOfWeeks,
             ]);
     }
 
@@ -72,6 +72,17 @@ class ShopController extends Controller
                                 ->where('product_id', $id)    
                                 ->get();
 
+                                
+        $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->count();
+        if(isset($dealOfWeeks) && $dealOfWeeks >= 9)
+            $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->get()->random(9);
+        elseif(isset($dealOfWeeks) && $dealOfWeeks >= 6)
+            $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->get()->random(6);
+        elseif(isset($dealOfWeeks) && $dealOfWeeks >= 3)
+            $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->get()->random(3);
+        else 
+            $dealOfWeeks = 'null';
+
         return view('product', [
             'product' => $product,
             'count' => $count,
@@ -82,6 +93,7 @@ class ShopController extends Controller
             'two' =>$two,
             'one' =>$one,
             'parentComment' =>$parentComment,
+            'dealOfWeeks' => $dealOfWeeks,
             ]);
     }
 
@@ -90,17 +102,23 @@ class ShopController extends Controller
     } 
 
     public function getCart(){
-        $orderNumber = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
-        if (!isset($orderNumber)) return redirect('/');
-        $numbOfOrderProducts = $orderNumber->products;
+        $order = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
+        if (!isset($order)) return redirect('/');
+        $orderProducts = $order->products;
 
         return view('cart', [
-            'numbOfOrderProducts' => $numbOfOrderProducts,
+            'orderProducts' => $orderProducts,
         ]);
     }
 
     public function getConfirmation(){
-        return view('confirmation');
+        $orderInfo = Order::whereUser_idAndStatus(Auth::user()->id, 'send')->orderBy('id', 'desc')->first();
+        $products = $orderInfo->products;
+
+        return view('confirmation', [
+            'orderInfo' => $orderInfo,
+            'products' => $products,
+        ]);
     }
 
 }

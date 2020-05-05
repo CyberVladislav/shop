@@ -4669,17 +4669,17 @@ label {
     .order_d_inner .details_item .list {
       margin-bottom: 30px; } }
   .order_d_inner .details_item .list li {
-    margin-bottom: 8px; }
+    margin-bottom: 8px; 
+    font-size: 14px;
+    color: #222222;
+    font-family: "Roboto", sans-serif;}
+    .order_d_inner .details_item .list li span {
+      width: 145px;
+      display: inline-block;
+      color: #777777; }
     .order_d_inner .details_item .list li:last-child {
       margin-bottom: 0px; }
-    .order_d_inner .details_item .list li a {
-      font-size: 14px;
-      color: #222222;
-      font-family: "Roboto", sans-serif; }
-      .order_d_inner .details_item .list li a span {
-        width: 145px;
-        display: inline-block;
-        color: #777777; }
+      
 
 .order_details_table {
   background: #e5ecee;

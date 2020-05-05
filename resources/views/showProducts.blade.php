@@ -6,8 +6,7 @@
 				<div class="single-product">
 					<a href="{{asset('product/'.$product->id)}}"><img class="img-fluid" src = "{{$product->image}}" alt=""></a>
 					<div class="product-details" >
-							<h6 style="font-size:12px">{{$product->brand}}</h6>
-						<h6><a href="{{asset('product/'.$product->id)}}">{{$product->name}}</a></h6>
+							<a href="{{asset('product/'.$product->id)}}"><h6>{{$product->brand}}</h6><h5>{{$product->name}}<h5></a>
 						<div class="price" style="text-align: center">
 							<h6>${{$product->price}}</h6>
 							<h6 class="l-through">$210.00</h6>

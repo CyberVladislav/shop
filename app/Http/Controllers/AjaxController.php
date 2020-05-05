@@ -147,14 +147,26 @@ class AjaxController extends Controller
 
     public function billing(CartBillingRequest $request)
     {
+        $arr = $request->input('arr');
         $addressInfo = Order::whereStatusAndUser_id('load', Auth::user()->id)->first();
+        if (!isset($addressInfo)){
+            return array('result' => 'notExist');
+        };
+        $orderId = $addressInfo->id;
+        foreach($arr as $key=>$value){
+            $productsOrderInfo = ProductsOrder::whereOrder_idAndProduct_id($orderId, $key)->first();
+            $productsOrderInfo->count = $value;
+            $productsOrderInfo->save();
+        }
         $addressInfo->status = 'send';
         $addressInfo->firstName = $request->input('firstName');
         $addressInfo->lastName = $request->input('lastName');
         $addressInfo->phone = $request->input('phone');    
         $addressInfo->postcode = $request->input('postcode');  
         $addressInfo->address = $request->input('address');    
-        $addressInfo->city = $request->input('city');      
+        $addressInfo->city = $request->input('city');   
+        $addressInfo->date = 'Los Angeles';   
+        $addressInfo->paymentMethod = 'Paypal';
         $addressInfo->note = $request->input('notes');   
         $addressInfo->save();
     }

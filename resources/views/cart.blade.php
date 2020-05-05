@@ -32,35 +32,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($numbOfOrderProducts as $numbOfOrderProduct)
-                            <tr class="js-tr-del-product-{{$numbOfOrderProduct->id}}"> 
+                            @foreach ($orderProducts as $orderProduct)
+                            <tr class="js-tr-del-product-{{$orderProduct->id}}"> 
                                 <td width="65%">
                                     <div class="media">
                                         <div class="d-flex">                              
-                                        <a href="{{asset('product/'.$numbOfOrderProduct->id)}}"><img src="{{$numbOfOrderProduct->image}}" alt="" width=152px height=102px></a>
+                                        <a href="{{asset('product/'.$orderProduct->id)}}"><img src="{{$orderProduct->image}}" alt="" width=152px height=102px></a>
                                         </div>
                                         <div class="media-body">
-                                            <p>{{$numbOfOrderProduct->description}}</p> 
+                                            <p>{{$orderProduct->description}}</p> 
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>${{$numbOfOrderProduct->price}}</h5>
+                                    <h5>${{$orderProduct->price}}</h5>
                                 </td>
                                 <td width="67" class="text-center">
                                     <div class="product_count">
                                         <div class="inputTN">
-                                            <input class="inputTN__input price-choosen-product" id="product_{{$numbOfOrderProduct->id}}" count="{{$numbOfOrderProduct->productsCount()}}" id-of-product="{{$numbOfOrderProduct->id}}" price-of-product="{{$numbOfOrderProduct->price}}" type="text" pattern="^[0-9]+$" value="{{$numbOfOrderProduct->productsCount()}}">
-                                            <div class="inputTN__top" id-of-product="{{$numbOfOrderProduct->id}}" ></div>
-                                            <div class="inputTN__bottom" id-of-product="{{$numbOfOrderProduct->id}}"></div>
+                                            <input class="inputTN__input price-choosen-product" id="product_{{$orderProduct->id}}" count="{{$orderProduct->productsCartCount()}}" id-of-product="{{$orderProduct->id}}" price-of-product="{{$orderProduct->price}}" type="text" pattern="^[0-9]+$" value="{{$orderProduct->productsCartCount()}}">
+                                            <div class="inputTN__top" id-of-product="{{$orderProduct->id}}" ></div>
+                                            <div class="inputTN__bottom" id-of-product="{{$orderProduct->id}}"></div>
                                         </div>
                                     </div>
                                 </td>
                                 <td width="14%" class="text-center">
-                                    <h5 class="price-product-{{$numbOfOrderProduct->id}}">${{$numbOfOrderProduct->price}}</h5>
+                                    <h5 class="price-product-{{$orderProduct->id}}">${{$orderProduct->price}}</h5>
                                 </td>
                                 <td width="4%" class="d-flex">
-                                    <i class="fa fa-lg fa-close" style="cursor: pointer;" js-del-product="{{$numbOfOrderProduct->id}}"></i> 
+                                    <i class="fa fa-lg fa-close" style="cursor: pointer;" js-del-product="{{$orderProduct->id}}"></i> 
                                 </td>
                             </tr>                         
                             @endforeach
@@ -122,12 +122,12 @@
                             <h2>Your Order</h2>
                             <ul class="list">
                                 <li><span class="product-order-list-head">Product <span class="float-right">Total</span></span></li>
-                                @foreach ($numbOfOrderProducts as $numbOfOrderProduct)
-                                    <li class="align-items-baseline d-flex justify-content-between js-tr-del-product-{{$numbOfOrderProduct->id}}">
-                                        <div class="align-items-baseline d-flex"><a href="{{ asset('product/'.$numbOfOrderProduct->id) }}" class="product-order-list">{{$numbOfOrderProduct->brand}} {{$numbOfOrderProduct->name}}</a>
-                                            <span class="middle ml-2 text-dark js-count-product-{{$numbOfOrderProduct->id}}"></span>
+                                @foreach ($orderProducts as $orderProduct)
+                                    <li class="align-items-baseline d-flex justify-content-between js-tr-del-product-{{$orderProduct->id}}">
+                                        <div class="align-items-baseline d-flex"><a href="{{ asset('product/'.$orderProduct->id) }}" class="product-order-list">{{$orderProduct->brand}} {{$orderProduct->name}}</a>
+                                            <span class="middle ml-2 text-dark js-count-product-{{$orderProduct->id}}"></span>
                                         </div>
-                                        <span class="price-product-{{$numbOfOrderProduct->id}}">${{$numbOfOrderProduct->price}}</span></a>
+                                        <span class="price-product-{{$orderProduct->id}}">${{$orderProduct->price}}</span></a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -143,4 +143,15 @@
         </div>
     </section>
     <!--================End Cart Area =================-->
+	<!-- Already send order modal  -->
+	<div class="modal fade" id="alreadySendModal" tabindex="-1" role="dialog" aria-labelledby="alreadySendModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5">
+					The order already received.
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End already send order modal -->
 @endsection('content')
