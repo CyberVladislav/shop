@@ -1,5 +1,5 @@
 	<!-- Start related-product Area -->
-	<section class="related-product-area section_gap_bottom">
+	<section class="related-product-area section_gap_bottom mt-5">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-6 text-center">

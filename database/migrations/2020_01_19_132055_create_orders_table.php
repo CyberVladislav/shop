@@ -24,6 +24,8 @@ class CreateOrdersTable extends Migration
             $table->integer('postcode');
             $table->string('address');
             $table->string('city');
+            $table->string('date');
+            $table->string('paymentMethod');
             $table->string('note');
             $table->timestamps();
         });
