@@ -8,14 +8,14 @@ $(document).ready(function () {
     });
     $(document).ready(function(){
         $('.test-checkbox').click(function() {
-            var arr=$('input:checkbox:checked').map(function() {return ($(this).attr('id'));}).get();
-            // if (arr.length == 0) {
-            // 	var asd = [];
-            // 	arr = asd;
-            // };
+            var arr = $('input:checkbox:checked').map(function() {
+                return ($(this).attr('id'));
+            }).get();
+            var checkUrl = window.location.pathname;
+            if (checkUrl == '/category') checkUrl = '/category/0'; 
             $.ajax({
                 type:'POST',
-                url:'/ajax',
+                url:'/ajax' + checkUrl, 
                 data:{ 
                     'brandAndColor[]': arr,
                 },

@@ -13,23 +13,32 @@ use App\Http\Requests\CartBillingRequest;
 
 class AjaxController extends Controller
 {
-    public function brandAndColor(){   
-        if (isset($_POST["brandAndColor"]))
-            $products = Product::whereIn('brand', $_POST["brandAndColor"])
+    public function brandAndColor($id = null){   
+        if (isset($_POST["brandAndColor"])){
+            if ($id == 0){
+                $products = Product::whereIn('brand', $_POST["brandAndColor"])
                                 ->orWhereIn('color', $_POST["brandAndColor"] )
                                 ->paginate(24);
-        else    
-            $products = Product::paginate(24);
-        
+            }else
+                $products = Product::where('category_id', $id)
+                                ->whereIn('brand', $_POST["brandAndColor"])
+                                ->orWhereIn('color', $_POST["brandAndColor"] )
+                                ->paginate(24);
+        }  
+        else{
+            if ($id == 0)  $products = Product::paginate(24);
+            else    $products = Product::where('category_id', $id)->paginate(24);
+        }
         return view('showProducts', [
             'products' => $products, 
         ]);
     }
 
-    public function show($number = null){
+    public function show($id = null){
         $number = $_POST["show"];
-        $products = Product::paginate($number);
-
+        if ($id == 0)   $products = Product::paginate($number);
+        else    $products = Product::where('category_id', $id)->paginate($number);
+        
         return view('showProducts', [
             'products' => $products,
         ]);
@@ -70,33 +79,38 @@ class AjaxController extends Controller
     }
 
 
-    // Не работает CHOOSEN CATEGORY
-    // public function priceSlider(){
-    //     $asd = current($_POST["varPr"]);
-    //     $zxc = next($_POST["varPr"]);
-    //     $min = (float)$asd;
-    //     $max = (float)$zxc;
-    //     $products = Product::where('price', '>', $min)
-    //                         ->where('price', '<', $max)
-    //                         ->paginate(24);
-        
-    //     return view('showProducts', [
-    //         'products' => $products,
-    //     ]);
-    // }
+    // // Не работает CHOOSEN CATEGORY
+    public function priceSlider($id = null){
+        $asd = current($_POST["varPr"]);
+        $zxc = next($_POST["varPr"]);
+        $min = (float)$asd;
+        $max = (float)$zxc;
+        if ($id == 0)   $products = Product::where('price', '>=', $min)
+                                        ->where('price', '<=', $max)
+                                        ->paginate(24);
+        else    $products = Product::where('category_id', $id)
+                                    ->where('price', '>=', $min)
+                                    ->where('price', '<=', $max)
+                                    ->paginate(24);
 
-    public function rangePrices(){
-        $minPriceProduct = Product::min('price');
-        $maxPriceProduct = Product::max('price');
-
-        return array('min' => $minPriceProduct, 'max' => $maxPriceProduct);
+        return view('showProducts', [
+            'products' => $products,
+        ]);
     }
 
-    public function sorting(){ 
+    public function rangePrices($id = null){
+        if ($id == 0)   $maxPriceProduct = Product::max('price');
+        else    $maxPriceProduct = Product::where('category_id', $id)->max('price');
+
+        return $maxPriceProduct;
+    }
+
+    public function sorting($id = null){ 
         $arr = explode(',', $_POST['sort']);
         $tableName = current($arr);
         $direction = next($arr);
-        $sortProducts = Product::orderBy($tableName, $direction)->get();
+        if ($id == 0) $sortProducts = Product::orderBy($tableName, $direction)->get();
+        else $sortProducts = Product::where('category_id', $id)->orderBy($tableName, $direction)->get();
 
         return view('showProducts',[
             'products' => $sortProducts,

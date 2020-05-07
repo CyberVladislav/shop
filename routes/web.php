@@ -40,17 +40,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/ajax', 'AjaxController@brandAndColor');
+Route::post('/ajax/category/{categoryId}', 'AjaxController@brandAndColor');
 
-Route::post('/ajaxShow', 'AjaxController@show');
+Route::post('/ajaxShow/category/{categoryId}', 'AjaxController@show');
 
 Route::post('/ajaxCart', 'AjaxController@cart');
 
-Route::post('/ajaxSlider', 'AjaxController@priceSlider');
+Route::post('/ajaxSlider/category/{categoryId}', 'AjaxController@priceSlider');
 
-Route::get('/rangePrice', 'AjaxController@rangePrices');
+Route::get('/rangePrice/category/{categoryId}', 'AjaxController@rangePrices');
 
-Route::post('/ajaxSort', 'AjaxController@sorting');
+Route::post('/ajaxSort/category/{categoryId}', 'AjaxController@sorting');
 
 Route::post('/ajaxLeaveReview', 'AjaxController@leaveReview');
 
