@@ -249,6 +249,7 @@
 	<script src="{{asset('js/custom/addToCart.js')}}"></script>
 	<script src="{{asset('js/custom/billingInfo.js')}}"></script>
 	<script src="{{asset('js/custom/cartCostProduct.js')}}"></script>
+	<script src="{{asset('js/custom/confirmation.js')}}"></script>
 	<script src="{{asset('js/custom/deleteProductCart.js')}}"></script>
 	<script src="{{asset('js/custom/leaveReview.js')}}"></script>
 	<script src="{{asset('js/custom/priceSlider.js')}}"></script>
@@ -279,12 +280,12 @@
 	</script>
 	<script>
 	$(document).ready(function () {
-		var total = 0;
-		$('.js-confir-subtotal').each(function(){
-			total += parseInt($(this).text().substr(1));
-		});
-		$('.js-confir-total-li').append(total);
-		$('.js-confir-total').text('$' + total);
+		var url = window.location.pathname;
+		console.log(url);
+		var substringArray = url.split("/");
+		if (typeof(substringArray[2]) != "undefined" && substringArray[2] !== null){
+			$('#js-category-'+substringArray[2]).addClass('active');
+		}
 	});
 	</script>
 </body>

@@ -25,10 +25,10 @@ class ShopController extends Controller
             $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->get()->random(3);
         else 
             $dealOfWeeks = 'null';
-
+        
         return view('main', [
-        'dealOfWeeks' => $dealOfWeeks,
-            ]);
+            'dealOfWeeks' => $dealOfWeeks,
+        ]);
     }
 
     public function getContact(){

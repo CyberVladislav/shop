@@ -1,11 +1,13 @@
 $(document).ready(function(){
     //----- Active No ui slider --------//
-    var maximum = 0;
+    var maximum = 0;    
+    var checkUrl = window.location.pathname;
+    if (checkUrl == '/category') checkUrl = '/category/0'; 
     $.ajax({
         async: false,
-        url: '/rangePrice',
+        url: '/rangePrice' + checkUrl,
         success: function(data){
-            maximum = parseInt(data.max);
+            maximum = parseInt(data);
         }
     });
 	$(function(){
@@ -13,6 +15,7 @@ $(document).ready(function(){
             var nonLinearSlider = document.getElementById('price-range');
             noUiSlider.create(nonLinearSlider, {
                 connect: true,
+                step: 50,
                 behaviour: 'tap',
                 start: [ 0, maximum ],
                 range: {
@@ -34,7 +37,7 @@ $(document).ready(function(){
                 console.log(arr);
                 $.ajax({
                     type:'POST',
-                    url:'/ajaxSlider',
+                    url:'/ajaxSlider' + checkUrl,
                     data:{ 
                         'varPr[]': arr,
                     },
