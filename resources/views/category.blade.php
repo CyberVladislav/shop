@@ -61,7 +61,7 @@
 					<div class="common-filter">
 						<div class="head">Price</div>
 						<div class="price-range-area">
-							<div id="price-range"></div>
+							<div class="js-price-test" id="price-range"></div>
 							<div class="value-wrapper d-flex">
 								<div class="price">Price:</div>
 								<span>$</span>

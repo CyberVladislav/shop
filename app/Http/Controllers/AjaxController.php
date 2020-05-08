@@ -8,41 +8,76 @@ use App\ProductsOrder;
 use App\Order;
 use App\User;
 use App\Review;
+use App\Subscribe;
 use Auth;
 use App\Http\Requests\CartBillingRequest;
 
+
 class AjaxController extends Controller
 {
-    public function brandAndColor($id = null){   
-        if (isset($_POST["brandAndColor"])){
-            if ($id == 0){
-                $products = Product::whereIn('brand', $_POST["brandAndColor"])
-                                ->orWhereIn('color', $_POST["brandAndColor"] )
-                                ->paginate(24);
-            }else
-                $products = Product::where('category_id', $id)
-                                ->whereIn('brand', $_POST["brandAndColor"])
-                                ->orWhereIn('color', $_POST["brandAndColor"] )
-                                ->paginate(24);
-        }  
-        else{
-            if ($id == 0)  $products = Product::paginate(24);
-            else    $products = Product::where('category_id', $id)->paginate(24);
+    public function allFilters($id = null){ 
+        if ($id == 0){
+            $products = Product::latest(); 
+            if (isset($_POST["priceArray"])){
+                $min = current($_POST["priceArray"]);
+                $max = next($_POST["priceArray"]);
+                $products = $products->where('price', '>=', $min)
+                                        ->where('price', '<=', $max);
+            }
+            if (isset($_POST["checkedArray"])){
+                $products = $products->whereIn('brand', $_POST["checkedArray"])
+                                    ->orWhereIn('color', $_POST["checkedArray"]);
+            }
+            if (isset($_POST["sort"])){
+                $arr = explode(',', $_POST['sort']);
+                $tableName = current($arr);
+                $direction = next($arr);
+                $products = $products->orderBy($tableName, $direction);
+            }
+            if (isset($_POST["show"])){
+                $number = $_POST["show"];
+                $products = $products->paginate($number);
+            }  
+            else $products = $products->paginate(24);
+        }else{
+            $products = Product::where('category_id', $id)->latest();
+            if (isset($_POST["priceArray"])){
+                $min = current($_POST["priceArray"]);
+                $max = next($_POST["priceArray"]);
+                $products = $products->where('price', '>=', $min)
+                                        ->where('price', '<=', $max);
+            }
+            if (isset($_POST["checkedArray"])){
+                $products = $products->whereIn('brand', $_POST["checkedArray"])
+                                    ->orWhereIn('color', $_POST["checkedArray"]);
+            }
+            if (isset($_POST["sort"])){
+                $arr = explode(',', $_POST['sort']);
+                $tableName = current($arr);
+                $direction = next($arr);
+                $products = $products->orderBy($tableName, $direction);
+            }
+            if (isset($_POST["show"])){
+                $number = $_POST["show"];
+                $products = $products->paginate($number);
+            }  
+            else $products = $products->paginate(24);
         }
-        return view('showProducts', [
-            'products' => $products, 
-        ]);
-    }
 
-    public function show($id = null){
-        $number = $_POST["show"];
-        if ($id == 0)   $products = Product::paginate($number);
-        else    $products = Product::where('category_id', $id)->paginate($number);
-        
         return view('showProducts', [
             'products' => $products,
         ]);
     }
+
+    // public function show($id = null){
+    //     $number = $_POST["show"];
+    //     if ($id == 0)   $products = Product::paginate($number);
+    //     else    $products = Product::where('category_id', $id)->paginate($number);
+        
+    //     return view('showProducts', [
+    //         'products' => $products,
+    //     ]);
+    // }
 
     public function cart(Request $request){
         $idProduct = $request->input('productId');
@@ -80,23 +115,23 @@ class AjaxController extends Controller
 
 
     // // Не работает CHOOSEN CATEGORY
-    public function priceSlider($id = null){
-        $asd = current($_POST["varPr"]);
-        $zxc = next($_POST["varPr"]);
-        $min = (float)$asd;
-        $max = (float)$zxc;
-        if ($id == 0)   $products = Product::where('price', '>=', $min)
-                                        ->where('price', '<=', $max)
-                                        ->paginate(24);
-        else    $products = Product::where('category_id', $id)
-                                    ->where('price', '>=', $min)
-                                    ->where('price', '<=', $max)
-                                    ->paginate(24);
+    // public function priceSlider($id = null){
+    //     $asd = current($_POST["varPr"]);
+    //     $zxc = next($_POST["varPr"]);
+    //     $min = (float)$asd;
+    //     $max = (float)$zxc;
+    //     if ($id == 0)   $products = Product::where('price', '>=', $min)
+    //                                     ->where('price', '<=', $max)
+    //                                     ->paginate(24);
+    //     else    $products = Product::where('category_id', $id)
+    //                                 ->where('price', '>=', $min)
+    //                                 ->where('price', '<=', $max)
+    //                                 ->paginate(24);
 
-        return view('showProducts', [
-            'products' => $products,
-        ]);
-    }
+    //     return view('showProducts', [
+    //         'products' => $products,
+    //     ]);
+    // }
 
     public function rangePrices($id = null){
         if ($id == 0)   $maxPriceProduct = Product::max('price');
@@ -105,17 +140,17 @@ class AjaxController extends Controller
         return $maxPriceProduct;
     }
 
-    public function sorting($id = null){ 
-        $arr = explode(',', $_POST['sort']);
-        $tableName = current($arr);
-        $direction = next($arr);
-        if ($id == 0) $sortProducts = Product::orderBy($tableName, $direction)->get();
-        else $sortProducts = Product::where('category_id', $id)->orderBy($tableName, $direction)->get();
+    // public function sorting($id = null){ 
+    //     $arr = explode(',', $_POST['sort']);
+    //     $tableName = current($arr);
+    //     $direction = next($arr);
+    //     if ($id == 0) $sortProducts = Product::orderBy($tableName, $direction)->paginate(24);
+    //     else $sortProducts = Product::where('category_id', $id)->orderBy($tableName, $direction)->paginate(24);
 
-        return view('showProducts',[
-            'products' => $sortProducts,
-        ]);
-    }
+    //     return view('showProducts',[
+    //         'products' => $sortProducts,
+    //     ]);
+    // }
 
     public function leaveReview(Request $request){        
         $feedback = new Review;
@@ -194,5 +229,11 @@ class AjaxController extends Controller
             Order::whereUser_idAndStatus(Auth::user()->id, 'load')->delete();
             return array('isEmpty' => 'empty');
         } 
+    }
+
+    public function subscribe(){
+        $subscriber = new Subscribe;
+        $subscriber->email = $_POST['email'];
+        $subscriber->save();
     }
 }

@@ -8,16 +8,26 @@ $(document).ready(function () {
     });
     $(document).ready(function(){
         $('.test-checkbox').click(function() {
-            var arr = $('input:checkbox:checked').map(function() {
+            var checkedArray = $('input:checkbox:checked').map(function() {
                 return ($(this).attr('id'));
             }).get();
+            var show = $('.show-product').val();
+            var sort = $('.sorting-product').val(); 
+            var minPrice = $('#lower-value').text(); 
+            var maxPrice = $('#upper-value').text();
+            var priceArray = [minPrice, maxPrice];
+            console.log(priceArray);
             var checkUrl = window.location.pathname;
             if (checkUrl == '/category') checkUrl = '/category/0'; 
+            if (!checkUrl.includes('/category')) window.location.replace('/category');
             $.ajax({
                 type:'POST',
                 url:'/ajax' + checkUrl, 
-                data:{ 
-                    'brandAndColor[]': arr,
+                data: {
+                    'show': show,
+                    'sort': sort,
+                    'priceArray[]': priceArray,
+                    'checkedArray[]': checkedArray,
                 },
                 success: function(result){
                     $('.lattest-product-area').html(result); 
