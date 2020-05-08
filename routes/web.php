@@ -40,17 +40,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/ajax/category/{categoryId}', 'AjaxController@brandAndColor');
+Route::post('/ajax/category/{categoryId}', 'AjaxController@allFilters');
 
-Route::post('/ajaxShow/category/{categoryId}', 'AjaxController@show');
+// Route::post('/ajaxShow/category/{categoryId}', 'AjaxController@show');
 
 Route::post('/ajaxCart', 'AjaxController@cart');
 
-Route::post('/ajaxSlider/category/{categoryId}', 'AjaxController@priceSlider');
+// Route::post('/ajaxSlider/category/{categoryId}', 'AjaxController@priceSlider');
 
-Route::get('/rangePrice/category/{categoryId}', 'AjaxController@rangePrices');
+Route::post('/rangePrice/category/{categoryId}', 'AjaxController@rangePrices');
 
-Route::post('/ajaxSort/category/{categoryId}', 'AjaxController@sorting');
+// Route::post('/ajaxSort/category/{categoryId}', 'AjaxController@sorting');
 
 Route::post('/ajaxLeaveReview', 'AjaxController@leaveReview');
 
@@ -65,3 +65,5 @@ Route::post('/find','SearchController@find');
 Route::post('/billing','AjaxController@billing');
 
 Route::post('/deleteProduct','AjaxController@deleteProduct');
+
+Route::post('/subscribe', 'AjaxController@subscribe');

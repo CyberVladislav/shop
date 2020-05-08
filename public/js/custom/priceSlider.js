@@ -3,11 +3,16 @@ $(document).ready(function(){
     var maximum = 0;    
     var checkUrl = window.location.pathname;
     if (checkUrl == '/category') checkUrl = '/category/0'; 
+    if (!checkUrl.includes('/category')) return false;
     $.ajax({
         async: false,
+        type: "POST",
         url: '/rangePrice' + checkUrl,
         success: function(data){
             maximum = parseInt(data);
+        },
+        error: function(error){
+            console.log(error);
         }
     });
 	$(function(){
@@ -33,23 +38,37 @@ $(document).ready(function(){
             // from the left edge of the slider.
             nonLinearSlider.noUiSlider.on('update', function ( values, handle, unencoded, isTap, positions ) {
                 nodes[handle].innerHTML = values[handle];
-                var arr = nonLinearSlider.noUiSlider.get();
-                console.log(arr);
-                $.ajax({
-                    type:'POST',
-                    url:'/ajaxSlider' + checkUrl,
-                    data:{ 
-                        'varPr[]': arr,
-                    },
-                    success: function(result){
-                        $('.lattest-product-area').html(result); 
-                    },
-                    error: function(err){
-                        console.log(err);
-                    }
-                });  
-                    
+                // var masiv = nonLinearSlider.noUiSlider.get();        
             });
 		}
-	});	
+    });	
+    $('.js-price-test').on('click', function(){
+        var show = $('.show-product').val();
+        var sort = $('.sorting-product').val(); 
+        var checkedArray = $('input:checkbox:checked').map(function() {
+            return ($(this).attr('id'));
+        }).get();
+        var minPrice = $('#lower-value').text(); 
+        var maxPrice = $('#upper-value').text();
+        var priceArray = [minPrice, maxPrice];
+        var checkUrl = window.location.pathname;
+        if (checkUrl == '/category') checkUrl = '/category/0';
+        if (!checkUrl.includes('/category')) window.location.replace('/category');
+        $.ajax({
+            type:'POST',
+            url:'/ajax' + checkUrl,
+            data: {
+                'show': show,
+                'sort': sort,
+                'priceArray[]': priceArray,
+                'checkedArray[]': checkedArray,
+            }, 
+            success: function(result){
+                $('.lattest-product-area').html(result); 
+            },
+            error: function(err){
+                console.log(err);
+            }
+        });  
+    });
 });

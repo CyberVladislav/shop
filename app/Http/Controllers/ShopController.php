@@ -9,6 +9,7 @@ use App\User;
 use App\Order;
 use App\ProductsOrder;
 use Auth;
+use App\Setting;
 
 use Illuminate\Http\Request;
 

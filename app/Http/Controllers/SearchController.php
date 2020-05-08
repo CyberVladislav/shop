@@ -30,8 +30,8 @@ class SearchController extends Controller
         $search = $request->input('search');
 
         $products = Product::where('name', 'like', "%$search%")
-           ->orWhere('brand', 'like', "%$search%")
-           ->paginate(24);
+                            ->orWhere('brand', 'like', "%$search%")
+                            ->paginate(24);
 
         $brands = Product::select('brand')
                 ->distinct()
