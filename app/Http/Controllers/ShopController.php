@@ -10,6 +10,9 @@ use App\Order;
 use App\ProductsOrder;
 use Auth;
 use App\Setting;
+use App\MainPhoto;
+use App\BannerProduct;
+use App\Question;
 
 use Illuminate\Http\Request;
 
@@ -26,39 +29,35 @@ class ShopController extends Controller
             $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->get()->random(3);
         else 
             $dealOfWeeks = 'null';
-        
+        $football = MainPhoto::where('name', 'For football')->first(); 
+        $basketball = MainPhoto::where('name', 'For basketball')->first(); 
+        $boxing = MainPhoto::where('name', 'For boxing')->first(); 
+        $running = MainPhoto::where('name', 'For running')->first(); 
+        $baseball = MainPhoto::where('name', 'For baseball')->first(); 
+        $bannerProducts = BannerProduct::all();
+
         return view('main', [
             'dealOfWeeks' => $dealOfWeeks,
+            'football' => $football,
+            'baseball' => $baseball,
+            'running' => $running,
+            'basketball' => $basketball,
+            'boxing' => $boxing,
+            'bannerProducts' => $bannerProducts,
         ]);
     }
 
     public function getContact(){
-        $contacts = Contact::all();
-
+        $contactData = Contact::first();
+        
         return view('contact', [
-            'contacts' => $contacts
+            'contactData' => $contactData,
             ]);
-    } 
-
-    public function getBlog(){
-        return view('blog');
-    } 
-
-    public function getSingleBlog(){
-        return view('singleBlog');
     } 
 
     public function getLogin(){
         return view('login');
-    } 
-
-    public function getTracking(){
-        return view('tracking');
-    } 
-
-    public function getElements(){
-        return view('elements');
-    } 
+    }
     
     public function productAction($id = null){
         $product = Product::find($id);
@@ -122,4 +121,14 @@ class ShopController extends Controller
         ]);
     }
 
+    public function question(Request $request){
+        $question = new Question;
+        $question->name = $request->input('name');
+        $question->email = $request->input('email');
+        $question->subject = $request->input('subject');
+        $question->message = $request->input('message');
+        $question->save();
+
+        return back();
+    }
 }

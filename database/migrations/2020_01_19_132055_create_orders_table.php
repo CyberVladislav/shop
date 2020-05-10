@@ -18,15 +18,15 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('status');
-            $table->string('firstName');
-            $table->string('lastName');
-            $table->integer('phone');
-            $table->integer('postcode');
-            $table->string('address');
-            $table->string('city');
-            $table->string('date');
-            $table->string('paymentMethod');
-            $table->string('note');
+            $table->string('firstName')->nullable();
+            $table->string('lastName')->nullable();
+            $table->integer('phone')->nullable();
+            $table->integer('postcode')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('date')->nullable();
+            $table->string('paymentMethod')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

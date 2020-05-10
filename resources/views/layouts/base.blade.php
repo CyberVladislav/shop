@@ -55,22 +55,6 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="{{ ($url=='/') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('/') }}">Home</a></li>
 							<li class="{{ ($url=='/category') || ($url=='/find') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('category') }}">Catalog</a></li>
-							<li class="{{ ($url=='/blog' || $url=='/singleBlog') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="{{ ($url=='/blog') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('blog') }}">Blog</a></li>
-									<li class="{{ ($url=='/singleBlog') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('singleBlog') }}">Blog Details</a></li>
-								</ul>
-							</li>
-							<li class="{{ ($url=='/tracking' || $url=='/elements') ? 'nav-item submenu dropdown active' : 'nav-item submenu dropdown'}}">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="{{ ($url=='/tracking') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('tracking') }}">Tracking</a></li>
-									<!-- <li class="{{ ($url=='/elements') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('elements') }}">Elements</a></li> -->
-								</ul>
-							</li>
 							<li class="{{ ($url=='/contact') ? 'nav-item active' : 'nav-item'}}"><a class="nav-link" href="{{ asset('contact') }}">Contact</a></li>
 
 							@if (Auth::check())
@@ -183,7 +167,7 @@
 								<a href="{{$vkLink->value}}"><i class="fa fa-vk"></i></a>
 							@endisset
 							@isset($facebookLink)
-								<a href="{{$facebookLink}}->value"><i class="fa fa-facebook"></i></a>
+								<a href="{{$facebookLink->value}}"><i class="fa fa-facebook"></i></a>
 							@endisset
 							@isset($twitterLink)
 								<a href="{{$twitterLink->value}}"><i class="fa fa-twitter"></i></a>

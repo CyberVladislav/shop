@@ -21,7 +21,7 @@ class CreateContactsTable extends Migration
             $table->string('workTime');
             $table->string('email');
             $table->string('desc');
-            $table->string('location');
+            $table->text('location');
             $table->timestamps();
         });
     }
