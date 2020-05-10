@@ -15,15 +15,7 @@ Route::get('/', 'ShopController@index');
 
 Route::get('/contact', 'ShopController@getContact');
 
-Route::get('/blog', 'ShopController@getBlog');
-
-Route::get('/singleBlog', 'ShopController@getSingleBlog');
-
 Route::get('/login', 'ShopController@getLogin');
-
-Route::get('/tracking', 'ShopController@getTracking');
-
-Route::get('/elements', 'ShopController@getElements');
 
 Route::get('/category', 'CategoryController@getCategory');
 
@@ -67,3 +59,5 @@ Route::post('/billing','AjaxController@billing');
 Route::post('/deleteProduct','AjaxController@deleteProduct');
 
 Route::post('/subscribe', 'AjaxController@subscribe');
+
+Route::post('/question', 'ShopController@question');
