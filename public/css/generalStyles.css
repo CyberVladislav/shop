@@ -156,4 +156,6 @@
 
   .modal-button .primary-btn {
     line-height: 34px;
-    text-transform: none;}
+    text-transform: none;
+    border-color: azure;
+  }

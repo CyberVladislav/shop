@@ -18,7 +18,7 @@ class CreateBannerProductsTable extends Migration
             $table->string('firstLine');
             $table->string('secondLine');
             $table->integer('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('image');
             $table->text('description');
             $table->timestamps();

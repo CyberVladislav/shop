@@ -9,7 +9,6 @@ use App\User;
 use App\Order;
 use App\ProductsOrder;
 use Auth;
-use App\Setting;
 use App\MainPhoto;
 use App\BannerProduct;
 use App\Question;
@@ -34,6 +33,7 @@ class ShopController extends Controller
         $boxing = MainPhoto::where('name', 'For boxing')->first(); 
         $running = MainPhoto::where('name', 'For running')->first(); 
         $baseball = MainPhoto::where('name', 'For baseball')->first(); 
+        $swimming = MainPhoto::where('name', 'For swimming')->first(); 
         $bannerProducts = BannerProduct::all();
 
         return view('main', [
@@ -43,6 +43,7 @@ class ShopController extends Controller
             'running' => $running,
             'basketball' => $basketball,
             'boxing' => $boxing,
+            'swimming' => $swimming,
             'bannerProducts' => $bannerProducts,
         ]);
     }
@@ -72,7 +73,6 @@ class ShopController extends Controller
                                 ->where('product_id', $id)    
                                 ->get();
 
-                                
         $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->count();
         if(isset($dealOfWeeks) && $dealOfWeeks >= 9)
             $dealOfWeeks = Product::where('IsProductOfWeek', '=', 1)->get()->random(9);

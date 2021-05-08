@@ -61,3 +61,8 @@ Route::post('/deleteProduct','AjaxController@deleteProduct');
 Route::post('/subscribe', 'AjaxController@subscribe');
 
 Route::post('/question', 'ShopController@question');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

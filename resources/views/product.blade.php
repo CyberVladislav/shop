@@ -25,20 +25,28 @@
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-1.jpg')}}" alt=""> <?php /* <img class="img-fluid" src="{{$product->image}}" alt=""> */ ?>
+							<img class="img-fluid" src="{{$product->image}}" alt="">
 						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-2.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-3.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-4.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{asset('img/nike-air-force-1-black-university-gold-wu-tang-5.jpg')}}" alt=""> <?php /*<img class="img-fluid" src="{{$product->image}}" alt="">*/ ?>
-						</div>
+						@if(!empty($product->imageOne))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageOne}}" alt=""> 
+							</div>
+						@endif
+						@if(!empty($product->imageTwo))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageTwo}}" alt=""> 
+							</div>
+						@endif
+						@if(!empty($product->imageThree))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageThree}}" alt=""> 
+							</div>
+						@endif
+						@if(!empty($product->imageFour))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageFour}}" alt=""> 
+							</div>
+						@endif
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
@@ -182,12 +190,10 @@
 										<button class="primary-btn" type="submit">Submit Now</button>
 									</div>
 									<div class="col-md-12" id="sendmessage">
-										Ой, кажется здесь кто-то насрал и не убрал. А нет, это Вы оставили отзыв, Сэр!
-										<!-- Спасибо, Ваш отзыв отправлен! -->
+										Thank you for the feedback!
 									</div>
 									<div class="col-md-12" id="senderror">
-									Если бы ты не был таким тупым, ошибки бы не возникло. Попробуй нацарапать ещё раз, Мудила!
-										<!-- При отправке отзыва произошла ошибка. Пожалуйста, повторите попытку, убедившись в том, что вы заполнили все обязательные поля - * -->
+										An error occurred when sending the review. Please try again, making sure that you have filled in all the required fields - *
 									</div>										
 								</form>
 								

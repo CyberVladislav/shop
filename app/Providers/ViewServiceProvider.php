@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Setting;
+use App\MainSetting;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -16,13 +16,13 @@ class ViewServiceProvider extends ServiceProvider
     {
         view()->composer ('layouts.base', function ($view)
         {
-            $socialPhotos = Setting::where('name', 'socialPhoto')->get();
-            $instaLink = Setting::where('name', 'instaLink')->first();
-            $vkLink = Setting::where('name', 'vkLink')->first();
-            $facebookLink = Setting::where('name', 'facebookLink')->first();
-            $twitterLink = Setting::where('name', 'twitterLink')->first();
-            $copyRight = Setting::where('name', 'copyRight')->first();
-            $aboutUs = Setting::where('name', 'aboutUs')->first();
+            $socialPhotos = MainSetting::where('name', 'socialPhoto')->get();
+            $instaLink = MainSetting::where('name', 'instaLink')->first();
+            $vkLink = MainSetting::where('name', 'vkLink')->first();
+            $facebookLink = MainSetting::where('name', 'facebookLink')->first();
+            $twitterLink = MainSetting::where('name', 'twitterLink')->first();
+            $copyRight = MainSetting::where('name', 'copyRight')->first();
+            $aboutUs = MainSetting::where('name', 'aboutUs')->first();
             
             $view->with([
                 'socialPhotos' => $socialPhotos,

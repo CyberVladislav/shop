@@ -20,7 +20,7 @@
 	<!--================Contact Area =================-->
 	<section class="contact_area section_gap_bottom">
 		<div class="container">
-		{!!$contactData->location!!}
+		<iframe src="{{$contactData->location}}" width="1100" height="450" frameborder="0" style="border:0;" allowfullscreen="" class="mt-4 mb-4 mw-100"></iframe>
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="contact_info">
