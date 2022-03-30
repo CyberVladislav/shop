@@ -10,3 +10,152 @@
 .mb-90 {
     margin-bottom: 90px;
 }
+
+.test-checkbox {
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+    background: #f9f9ff;
+    position: relative;
+    cursor: pointer;     
+}
+
+.dis-button{
+    color: #af0606, 0.3;
+    background: #0e0ec3;
+    cursor: not-allowed;
+}
+
+.star-rating__wrap{
+	display: inline-block;
+}
+.star-rating__wrap:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.star-rating__ico{
+	float: right;
+	padding-left: 2px;
+	cursor: pointer;
+	color: #FFB300;
+}
+.star-rating__ico:last-child{
+	padding-left: 0;
+}
+.star-rating__input{
+	display: none;
+}
+.star-rating__ico:hover:before,
+.star-rating__ico:hover ~ .star-rating__ico:before,
+.star-rating__input:checked ~ .star-rating__ico:before
+{
+	content: "\f005";
+}
+.fa-lg {
+    font-size: 1.3em;
+}
+
+#sendmessage, #senderror {
+    border:1px solid #e6e6e6;
+    background:#f6f6f6;
+    display:none;
+    text-align:center;
+    padding:15px 12px 15px 12px;
+    margin:10px 14px;
+    font-weight:600;
+    margin-bottom:30px;
+}
+#sendmessage{
+    color:green;
+}
+#senderror {
+    color: #f00;
+}
+
+.single-product:hover {
+    transform: scale(1.05);
+}
+
+.panel-body .form-group input {
+    height: 54px;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    border-radius: 0px;
+    outline: none;
+    box-shadow: none; 
+}
+
+.panel-body .registr_form {
+    max-width: 320px;
+    margin: auto;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.panel-default {
+    border-color: #ddd;
+}
+
+.inputTN {
+    position: relative;
+  }
+  
+  .inputTN__input {
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-right: 20px;
+    border: 1px solid #d0c4db;
+    outline: none;
+    width: 77px;
+    height: 33px;
+    transition: .2s;
+  }
+  
+  .inputTN:hover .inputTN__input,
+  .inputTN:focus .inputTN__input {
+    border-color: #888;
+  }
+  
+  .inputTN__top {
+    width: 0px;
+    border: 7px solid transparent;
+    border-bottom: 12px solid #d0c4db;
+    position: absolute;
+    top: -3%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+  }
+  
+  .inputTN__top:hover{
+    border-bottom-color: #888;
+  }
+  
+  .inputTN__bottom {
+    width: 0px;
+    border: 7px solid transparent;
+    border-top: 12px solid #d0c4db;
+    position: absolute;
+    top: 61%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+  }
+  
+  .inputTN__bottom:hover {
+    border-top-color: #888;
+  }
+
+  .modal-button .primary-btn {
+    line-height: 34px;
+    text-transform: none;
+    border-color: azure;
+  }

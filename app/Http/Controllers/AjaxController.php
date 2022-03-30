@@ -7,81 +7,233 @@ use App\Product;
 use App\ProductsOrder;
 use App\Order;
 use App\User;
+use App\Review;
+use App\Subscribe;
 use Auth;
+use App\Http\Requests\CartBillingRequest;
 
 
 class AjaxController extends Controller
 {
-    public function brandAndColor(){   
-        $brandOrColor = $_POST["brand"];
-        $products = Product::where ('brand', '=', $brandOrColor)
-                            ->orWhere('color', '=', $brandOrColor)
-                            ->get();
-
-        return view('showProducts', [
-            'products' => $products, 
-        ]);
-
-        // $brand = isset($_POST["brand"]) ? $_POST["brand"] : "undefined";
-        // $color = isset($_POST["color"]) ? $_POST["color"] : "undefined";
-        
-        // if ($color != "undefined" && $brand !="undefined"){
-        //     $products = Product::where ('brand', '=', $brand)
-        //                         ->where('color', '=', $color)
-        //                         ->get();
-        // }
-        // elseif ($brand != "undefined") {
-        //     $products = Product::where ('brand', '=', $brand)
-        //                         ->get();
-        // }
-        // else {
-        //     $products = Product::where('color', '=', $color)
-        //                         ->get();
-        // }
-
-        return view('showProducts', [
-            'products' => $products, 
-        ]);
-
-
-    }
-
-    public function show($number = null){
-        $number = $_POST["show"];
-        $products = Product::paginate($number);
+    public function allFilters($id = null){ 
+        if ($id == 0){
+            $products = Product::latest(); 
+            if (isset($_POST["priceArray"])){
+                $min = current($_POST["priceArray"]);
+                $max = next($_POST["priceArray"]);
+                $products = $products->where('price', '>=', $min)
+                                        ->where('price', '<=', $max);
+            }
+            if (isset($_POST["checkedArray"])){
+                $products = $products->whereIn('brand', $_POST["checkedArray"])
+                                    ->orWhereIn('color', $_POST["checkedArray"]);
+            }
+            if (isset($_POST["sort"])){
+                $arr = explode(',', $_POST['sort']);
+                $tableName = current($arr);
+                $direction = next($arr);
+                $products = $products->orderBy($tableName, $direction);
+            }
+            if (isset($_POST["show"])){
+                $number = $_POST["show"];
+                $products = $products->paginate($number);
+            }  
+            else $products = $products->paginate(24);
+        }else{
+            $products = Product::where('category_id', $id)->latest();
+            if (isset($_POST["priceArray"])){
+                $min = current($_POST["priceArray"]);
+                $max = next($_POST["priceArray"]);
+                $products = $products->where('price', '>=', $min)
+                                        ->where('price', '<=', $max);
+            }
+            if (isset($_POST["checkedArray"])){
+                $products = $products->whereIn('brand', $_POST["checkedArray"])
+                                    ->orWhereIn('color', $_POST["checkedArray"]);
+            }
+            if (isset($_POST["sort"])){
+                $arr = explode(',', $_POST['sort']);
+                $tableName = current($arr);
+                $direction = next($arr);
+                $products = $products->orderBy($tableName, $direction);
+            }
+            if (isset($_POST["show"])){
+                $number = $_POST["show"];
+                $products = $products->paginate($number);
+            }  
+            else $products = $products->paginate(24);
+        }
 
         return view('showProducts', [
             'products' => $products,
         ]);
     }
 
-    public function cart(Request $request){
+    // public function show($id = null){
+    //     $number = $_POST["show"];
+    //     if ($id == 0)   $products = Product::paginate($number);
+    //     else    $products = Product::where('category_id', $id)->paginate($number);
+        
+    //     return view('showProducts', [
+    //         'products' => $products,
+    //     ]);
+    // }
 
-        if (!(Auth::check())){
-            return array('result' => 'reload');
-        }
-        else{
-            $searchNeedOrder = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
-            if (isset ($searchNeedOrder)){
-                $helpTable = new ProductsOrder;
-                $helpTable->product_id = $request->input('productId');
-                $helpTable->order_id = $searchNeedOrder->id;
-                $helpTable->save();
-            }
+    public function cart(Request $request){
+        $idProduct = $request->input('productId');
+        $searchNeedOrder = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first();
+        if (isset ($searchNeedOrder)){
+            $orderId = $searchNeedOrder->id;
+            $thatProduct = ProductsOrder::whereProduct_idAndOrder_id($idProduct, $orderId)->first();
+            if(isset($thatProduct)){
+                $productCount = $thatProduct->count;
+                $thatProduct->count = $request->input('count') + $productCount;
+                $thatProduct->save();
+            }    
             else{
                 $helpTable = new ProductsOrder;
-                $orderTable = new Order;
-                    
-                $orderTable->user_id = Auth::user()->id;
-                $orderTable->status = 'load';
-                $orderTable->save();
-
-                $helpTable->product_id = $request->input('productId');
-                $helpTable->order_id = $orderTable->id;
+                $helpTable->product_id = $idProduct;
+                $helpTable->order_id = $searchNeedOrder->id;
+                $helpTable->count = $request->input('count'); 
                 $helpTable->save();
             }
         }
-        return back();
+        else{
+            $helpTable = new ProductsOrder;
+            $orderTable = new Order;
+            
+            $orderTable->user_id = Auth::user()->id;
+            $orderTable->status = 'load';
+            $orderTable->save();
+
+            $helpTable->product_id = $idProduct;
+            $helpTable->order_id = $orderTable->id;
+            $helpTable->count = $request->input('count');  
+            $helpTable->save();
+        }
     }
 
+
+    // // Не работает CHOOSEN CATEGORY
+    // public function priceSlider($id = null){
+    //     $asd = current($_POST["varPr"]);
+    //     $zxc = next($_POST["varPr"]);
+    //     $min = (float)$asd;
+    //     $max = (float)$zxc;
+    //     if ($id == 0)   $products = Product::where('price', '>=', $min)
+    //                                     ->where('price', '<=', $max)
+    //                                     ->paginate(24);
+    //     else    $products = Product::where('category_id', $id)
+    //                                 ->where('price', '>=', $min)
+    //                                 ->where('price', '<=', $max)
+    //                                 ->paginate(24);
+
+    //     return view('showProducts', [
+    //         'products' => $products,
+    //     ]);
+    // }
+
+    public function rangePrices($id = null){
+        if ($id == 0)   $maxPriceProduct = Product::max('price');
+        else    $maxPriceProduct = Product::where('category_id', $id)->max('price');
+
+        return $maxPriceProduct;
+    }
+
+    // public function sorting($id = null){ 
+    //     $arr = explode(',', $_POST['sort']);
+    //     $tableName = current($arr);
+    //     $direction = next($arr);
+    //     if ($id == 0) $sortProducts = Product::orderBy($tableName, $direction)->paginate(24);
+    //     else $sortProducts = Product::where('category_id', $id)->orderBy($tableName, $direction)->paginate(24);
+
+    //     return view('showProducts',[
+    //         'products' => $sortProducts,
+    //     ]);
+    // }
+
+    public function leaveReview(Request $request){        
+        $feedback = new Review;
+        if (Auth::check()){
+            $feedback->user_id = Auth::user()->id;
+            $feedback->parent_id = '0';
+        }
+        else{
+            $feedback->user_id = '4';
+            $feedback->parent_id = '0';
+        }
+        $feedback->product_id = $request->idProduct;
+        $feedback->rating = $request->rating;    
+        $feedback->description = $request->message;
+        $feedback->save();
+
+        return view('lastReview', [            
+            'parentComment' =>$feedback,
+        ]);
+    }
+
+    public function feedbackReply(Request $request){
+        if ($request->replyy == "empty field")
+            return undefined;
+        $feedback = new Review;
+        if (Auth::check()){
+            $feedback->user_id = Auth::user()->id;
+            $feedback->parent_id = $request->idOfParentOrChild;;
+        }
+        else{
+            $feedback->user_id = '4';
+            $feedback->parent_id = $request->idOfParentOrChild;
+        }
+        $feedback->product_id = $request->idOfProduct;
+        $feedback->rating = '0';    
+        $feedback->description = $request->replyy;
+        $feedback->save();
+
+        return view('repl',[
+            'child' => $feedback
+            ]);
+    }
+
+    public function billing(CartBillingRequest $request)
+    {
+        $arr = $request->input('arr');
+        $addressInfo = Order::whereStatusAndUser_id('load', Auth::user()->id)->first();
+        if (!isset($addressInfo)){
+            return array('result' => 'notExist');
+        };
+        $orderId = $addressInfo->id;
+        foreach($arr as $key=>$value){
+            $productsOrderInfo = ProductsOrder::whereOrder_idAndProduct_id($orderId, $key)->first();
+            $productsOrderInfo->count = $value;
+            $productsOrderInfo->save();
+        }
+        $addressInfo->status = 'send';
+        $addressInfo->firstName = $request->input('firstName');
+        $addressInfo->lastName = $request->input('lastName');
+        $addressInfo->phone = $request->input('phone');    
+        $addressInfo->postcode = $request->input('postcode');  
+        $addressInfo->address = $request->input('address');    
+        $addressInfo->city = $request->input('city');   
+        $addressInfo->date = 'Los Angeles';   
+        $addressInfo->paymentMethod = 'Paypal';
+        $addressInfo->note = $request->input('notes');   
+        $addressInfo->save();
+    }
+
+    public function deleteProduct(Request $request){
+        $orderId = Order::whereUser_idAndStatus(Auth::user()->id, 'load')->first()->id;
+        $productId = $request->idProduct;
+        ProductsOrder::whereOrder_idAndProduct_id($orderId, $productId)->delete();
+        $qwe = ProductsOrder::where('order_id', $orderId)->first();
+        if (!isset($qwe)){
+            Order::whereUser_idAndStatus(Auth::user()->id, 'load')->delete();
+            return array('isEmpty' => 'empty');
+        } 
+    }
+
+    public function subscribe(){
+        $subscriber = new Subscribe;
+        $subscriber->email = $_POST['email'];
+        $subscriber->save();
+    }
 }

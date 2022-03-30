@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layouts.base')
 @section('content')
 
 <body id="category">
@@ -24,8 +24,8 @@
 					<div class="head">Browse Categories</div>
 					<ul class="main-categories">
 						@foreach($categories as $category)
-						<li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-								 class="lnr lnr-arrow-right"></span><a href="{{asset('category/'.$category->id)}}">{{$category->name}}<span class="number">({{$category->product_count}})</span></a>
+						<li class="main-nav-list" id="js-category-{{$category->id}}"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
+							class="lnr lnr-arrow-right"></span><a href="{{asset('category/'.$category->id)}}">{{$category->name}}<span class="number">({{$category->product_count}})</span></a>
 						</li>
 						@endforeach
 					</ul>
@@ -38,7 +38,8 @@
 							<div class="scrollbar-brand-color">
 								<ul>
 									@foreach ($brands as $brand)
-									<li class="filter-list"><input class="pixel-radio brand-filtr" type="radio" id="{{$brand->brand}}" name="brand"><label for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
+									<li class="filter-list"><input class="test-checkbox" type="checkbox" id="{{$brand->brand}}" name="brand">
+									<label class="ml-lg-2" for="{{$brand->brand}}">{{$brand->brand}}<span>({{$brand->brandCount()}})</span></label></li>
 									@endforeach
 								</ul>
 							</div>
@@ -50,7 +51,8 @@
 							<div class="scrollbar-brand-color">
 								<ul>
 									@foreach ($colors as $color)
-									<li class="filter-list"><input class="pixel-radio color-filtr" type="radio" id="{{$color->color}}" name="color"><label for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
+									<li class="filter-list"><input class="test-checkbox" type="checkbox" id="{{$color->color}}" name="color">
+									<label class="ml-lg-2" for="{{$color->color}}">{{$color->color}}<span>({{$color->colorCount()}})</span></label></li>
 									@endforeach
 								</ul>
 							</div>	
@@ -59,7 +61,7 @@
 					<div class="common-filter">
 						<div class="head">Price</div>
 						<div class="price-range-area">
-							<div id="price-range"></div>
+							<div class="js-price-test" id="price-range"></div>
 							<div class="value-wrapper d-flex">
 								<div class="price">Price:</div>
 								<span>$</span>
@@ -76,24 +78,28 @@
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select>
-							<option value="1">Default sorting</option>
-							<option value="1">Default sorting</option>
-							<option value="1">Default sorting</option>
+						<select class="sorting-product">
+							<option value="id,asc">Default sorting</option>
+							<option value="price,asc">Prices sorting: Low to High</option>
+							<option value="price,desc">Prices sorting: High to Low</option>
+							<option value="name,asc">Names sorting: A to Z</option>
+							<option value="name,desc">Names sorting: Z to A</option>
 						</select>
 					</div>
-					@include('pagin')
-					<!-- <div class="pagination"> -->
-					{{ $products->links() }}						
-					<!-- </div> -->
+					<div class="sorting mr-auto">
+						<select class="show-product">
+							<option id="show" value="24">Show 24</option>
+							<option value="36">Show 36</option>
+							<option value="48">Show 48</option>
+						</select>
+					</div>
 				</div>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
 				@include('showProducts')
 				<!-- End Best Seller -->
 				<!-- Start Filter Bar -->
-				<div class="filter-bar d-flex flex-wrap align-items-center">	
-					@include('pagin')
+				<div class="filter-bar d-flex flex-wrap align-items-center">
 					{{ $products->links() }}
 				</div>
 				<!-- End Filter Bar -->
@@ -102,7 +108,9 @@
 	</div>
 
 	<!-- Start related-product Area -->
-	<?php /* @include('dealsOfWeek') */ ?>
+	@if($dealOfWeeks != 'null')
+		@include('dealsOfWeek')
+	@endif
 	<!-- End related-product Area -->
 
 	<!-- Modal Quick Product View -->

@@ -60,6 +60,12 @@
   background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
   background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); }
 
+.pagination a.disable-button-pagin{
+   background: -webkit-linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background: -moz-linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background: -o-linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%); }
+}
 .gradient-bg-reverse, #search_input_box {
   background: -webkit-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
   background: -moz-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
@@ -1137,8 +1143,6 @@ h1, h2, h3, h4, h5, h6 {
       @media (max-width: 991px) {
         .header_area .navbar .nav.navbar-nav.navbar-right li {
           margin-left: 0px; } }
-      .header_area .navbar .nav.navbar-nav.navbar-right li:first-child {
-        margin-left: 35px; }
         @media (max-width: 991px) {
           .header_area .navbar .nav.navbar-nav.navbar-right li:first-child {
             display: none; } }
@@ -1166,17 +1170,22 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   padding: 5px 20px; }
   #search_input_box .form-control {
-    background: transparent;
+    /* background: transparent; */
+    opacity: 0.8;
     border: 0;
-    color: #ffffff;
-    font-weight: 400;
-    font-size: 15px;
+    /* color: #ffffff; */
+    color: #191919;
+    /* font-weight: 400; */
+    /* font-size: 15px; */
+    font-weight: 500;
+    font-size: 18px;
     padding: 0; }
     #search_input_box .form-control:focus {
       box-shadow: none;
       outline: none; }
   #search_input_box input.placeholder {
-    color: #ffffff;
+    /* color: #ffffff; */
+    color: #191919;    
     font-size: 14px; }
   #search_input_box input:-moz-placeholder {
     color: #ffffff;
@@ -1193,7 +1202,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
     border: 0; }
   #search_input_box .lnr-cross {
-    color: #fff;
+    /* color: #fff; */
+    color: #191919;    
     font-weight: 600;
     cursor: pointer;
     padding: 10px 3px; }
@@ -1206,7 +1216,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
-  background: url(../img/banner/banner-bg.jpg) center no-repeat;
+  background: url(../img/background/main-bg.jpg) center no-repeat;
   background-size: cover;
   position: relative; }
   @media (max-width: 768px) {
@@ -1282,7 +1292,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #222222; }
 
 .organic-breadcrumb {
-  background: url(../img/banner/common-banner.jpg) center no-repeat;
+  background: url(../img/background/common-bg.jpg) center no-repeat;
   background-size: cover;
   padding-top: 130px; }
   @media (max-width: 991px) {
@@ -3160,6 +3170,9 @@ label {
     background: #fff; }
     .pagination a.active {
       color: #fff; }
+      .pagination a.disable-button-pagin:hover{
+        color: black;
+      }
     .pagination a:hover {
       color: #fff; }
   .pagination .dot-dot {
@@ -3306,7 +3319,7 @@ label {
   line-height: 50px;
   padding-left: 10px;
   border-bottom: 1px solid #eee; }
-  .sidebar-categories .main-nav-list a:hover {
+  .sidebar-categories .main-nav-list a:hover, .sidebar-categories .main-nav-list.active a {
     color: #ffba00; }
   .sidebar-categories .main-nav-list a .number {
     color: #cccccc;
@@ -3978,10 +3991,12 @@ label {
     font-weight: normal;
     padding-right: 10px; }
   .product_count input {
+    padding-left: 25px;
+    height: 40px;
+    outline: none;
+    box-shadow: none;
     width: 76px;
-    border: 1px solid #eeeeee;
-    border-radius: 3px;
-    padding-left: 10px; }
+    border: 1px solid #eeeeee; }
   .product_count button {
     display: block;
     border: none;
@@ -4143,6 +4158,7 @@ label {
   color: #222222;
   margin-bottom: 20px; }
 .review_box p {
+  font-size: 16px;
   margin-bottom: 0px;
   display: inline-block; }
 .review_box .list {
@@ -4558,25 +4574,17 @@ label {
     font-weight: 500;
     color: #222222;
     padding-bottom: 15px; }
-  .order_box .list li a {
+  .order_box .list li .product-order-list {
     font-size: 14px;
     color: #777777;
     font-weight: normal;
     border-bottom: 1px solid #eeeeee;
     display: block;
     line-height: 42px; }
-    .order_box .list li a span {
-      float: right; }
     .order_box .list li a .middle {
-      float: none;
-      width: 50px;
-      text-align: right;
-      display: inline-block;
-      margin-left: 30px;
+      margin-left: 8px;
       color: #222222; }
-  .order_box .list li:nth-child(4) a .middle {
-    margin-left: 48px; }
-  .order_box .list_2 li a {
+  .order_box .list_2 li .product-order-list, .order_box .list .product-order-list-head{
     text-transform: uppercase;
     color: #222222;
     font-weight: 500; }
@@ -4659,17 +4667,17 @@ label {
     .order_d_inner .details_item .list {
       margin-bottom: 30px; } }
   .order_d_inner .details_item .list li {
-    margin-bottom: 8px; }
+    margin-bottom: 8px; 
+    font-size: 14px;
+    color: #222222;
+    font-family: "Roboto", sans-serif;}
+    .order_d_inner .details_item .list li span {
+      width: 145px;
+      display: inline-block;
+      color: #777777; }
     .order_d_inner .details_item .list li:last-child {
       margin-bottom: 0px; }
-    .order_d_inner .details_item .list li a {
-      font-size: 14px;
-      color: #222222;
-      font-family: "Roboto", sans-serif; }
-      .order_d_inner .details_item .list li a span {
-        width: 145px;
-        display: inline-block;
-        color: #777777; }
+      
 
 .order_details_table {
   background: #e5ecee;
@@ -4709,7 +4717,6 @@ label {
 /* Login form Area css
 ============================================================================================ */
 .login_box_area .login_box_img {
-  margin-right: -30px;
   position: relative; }
   .login_box_area .login_box_img img {
     width: 100%; }

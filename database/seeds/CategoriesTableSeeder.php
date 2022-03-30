@@ -17,8 +17,7 @@ class CategoriesTableSeeder extends Seeder
         $faker = Faker::create();
         foreach (range(1,8) as $index) {
         DB::table('categories')->insert([
-        'clotherType' => $faker->jobTitle,
-        'name' => $faker->name, 
+        'name' => $faker->randomElement($array = array ('Football', 'Basketball', 'Baseball', 'Voleyball', 'Tennis', 'Running', 'Boxing', 'Swimming')),
         ]);
         }
     }

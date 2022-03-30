@@ -1,4 +1,4 @@
-@extends ('welcome')
+@extends ('layouts.base')
 @section('content')
 
 	<!-- Start Banner Area -->
@@ -10,7 +10,7 @@
 					<nav class="d-flex align-items-center">
 						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
 						<a href="{{asset('category')}}">Shop<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{asset('product/'.$product->id)}}">{{$product->name}}</a>
+						<a href="{{asset('product/'.$product->id)}}">{{$product->brand}} {{$product->name}}</a>
 					</nav>
 				</div>
 			</div>
@@ -23,39 +23,55 @@
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
-					<!-- <div class="s_Product_carousel">
+					<div class="s_Product_carousel">
 						<div class="single-prd-item">
 							<img class="img-fluid" src="{{$product->image}}" alt="">
 						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{$product->image}}" alt="">
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{$product->image}}" alt="">
-						</div>
-					</div> -->
+						@if(!empty($product->imageOne))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageOne}}" alt=""> 
+							</div>
+						@endif
+						@if(!empty($product->imageTwo))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageTwo}}" alt=""> 
+							</div>
+						@endif
+						@if(!empty($product->imageThree))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageThree}}" alt=""> 
+							</div>
+						@endif
+						@if(!empty($product->imageFour))
+							<div class="single-prd-item">
+								<img class="img-fluid" src="{{$product->imageFour}}" alt=""> 
+							</div>
+						@endif
+					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>{{$product->name}}</h3>
+						<h3>{{$product->brand}} {{$product->name}}</h3>
 						<h2>${{$product->price}}</h2>
 						<ul class="list">
 							<li><a class="active"  href="{{asset('category')}}"><span>Category</span></a> : <a class="active">Household</a></li>
 							<li><a><span>Availibility</span> : In Stock</a></li>
 						</ul>
 						<p>{{$product->description}}</p>
-						<div class="product_count">
-							<label for="qty">Quantity:</label>
-							<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
-							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						<div class="product_count d-flex align-items-center">
+							<div class="mr-2">Quantity: </div>								
+                            <div class="inputTN">
+                                <input class="inputTN__input js-singleProduct-count" type="text" pattern="^[0-9]+$" value="1">
+                                <div class="inputTN__top" ></div>
+                                <div class="inputTN__bottom"></div>
+                            </div>                                    
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="primary-btn add-to-cart" data-product="{{$product->id}}" href="{{asset('##')}}">Add to Cart</a>
-							<a class="icon_btn"  href="{{asset('#')}}"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn"  href="{{asset('#')}}"><i class="lnr lnr lnr-heart"></i></a>
+						@if (Auth::check())
+							<a class="primary-btn add-to-cart" href="##" data-product="{{$product->id}}" data-toggle="modal" data-target="#productAddUserModal">Add to Cart</a>
+						@else
+							<a class="primary-btn" href="##" data-toggle="modal" data-target="#productAddGuestModal">Add to Cart</a>
+						@endif
 						</div>
 					</div>
 				</div>
@@ -71,10 +87,6 @@
 				<li class="nav-item">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="{{asset('#profile')}}" role="tab" aria-controls="profile"
 					 aria-selected="false">Specification</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="contact-tab" data-toggle="tab" href="{{asset('#contact')}}" role="tab" aria-controls="contact"
-					 aria-selected="false">Comments</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" id="review-tab" data-toggle="tab" href="{{asset('#review')}}" role="tab" aria-controls="review"
@@ -114,45 +126,6 @@
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="comment_list">
-								@foreach ($parentComment as $parent)
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-1.png')}}" alt="">
-										</div>
-										<div class="media-body">
-											<h4>{{$parent->user->name}}</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-										</div>
-									</div>
-									<p>{{$parent->description}}</p>
-								</div>
-								@foreach($parent->childComments() as $child)
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="{{asset('img/product/review-2.png')}}" alt="">
-										</div>
-										<div class="media-body">
-											<h4>{{$child->user->name}}</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-										</div>
-									</div>
-									<p>{{$child->description}}</p>
-								</div>
-								@endforeach
-								@endforeach
-							</div>
-						</div>
-						
-					</div>
-				</div>
 				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-6">
@@ -182,69 +155,48 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-								<div class="comment_list">
-									@foreach ($parentComment as $parent)
-									<div class="review_item">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{{asset('img/product/review-1.png')}}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>{{$parent->user->name}}</h4>
-												<h5>{{ \Carbon\Carbon::parse($parent->created_at)->format('d/m/Y H:i')}}</h5>												
-													@while ($parent->rating-- > 0)
-													<i class="fa fa-star"></i>
-													@endwhile
-											
-												<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-											</div>
-										</div>
-										<p>{{$parent->description}}</p>
-									</div>
-									@foreach($parent->childComments() as $child)
-									<div class="review_item reply">
-										<div class="media">
-											<div class="d-flex">
-												<img src="{{asset('img/product/review-2.png')}}" alt="">
-											</div>
-											<div class="media-body">
-												<h4>{{$child->user->name}}</h4>
-												<h5>{{ \Carbon\Carbon::parse($parent->created_at)->format('d/m/Y H:i')}}</h5>
-												<a class="reply_btn"  href="{{asset('#')}}">Reply</a>
-											</div>
-										</div>
-										<p>{{$child->description}}</p>
-									</div>
-									@endforeach
-									@endforeach
-								</div>
+						<div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+							<div class="comment_list">
+								@include('review')
 							</div>
+						</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Add a Review</h4>
-								<p>Your Rating:</p>
-								<ul class="list">
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-									<li><a  href="{{asset('#')}}"><i class="fa fa-star"></i></a></li>
-								</ul>
-								<p>Outstanding</p>
-								<form class="row contact_form" action="{{asset('addReview')}}" method="post" id="contactForm" novalidate="novalidate">
+								<form class="row contact_form" id="contactform" productId="{{$product->id}}" novalidate="novalidate">
 								{{ csrf_field() }}
+										<div class="col mb-3">
+											<p>* Your Rating:</p>
+											<div class="star-rating__wrap">
+												<input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 of 5 stars"></label>
+												<input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
+													<label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 of 5 stars"></label>
+											</div>
+										</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea></textarea>
+											<textarea class="form-control" name="message" id="message" rows="1" placeholder="* Review" onfocus="this.placeholder = ''" onblur="this.placeholder = '* Review'"></textarea>
 										</div>
 									</div>
 									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="primary-btn">Submit Now</button>
+										<button class="primary-btn" type="submit">Submit Now</button>
 									</div>
+									<div class="col-md-12" id="sendmessage">
+										Thank you for the feedback!
+									</div>
+									<div class="col-md-12" id="senderror">
+										An error occurred when sending the review. Please try again, making sure that you have filled in all the required fields - *
+									</div>										
 								</form>
+								
 							</div>
 						</div>
 					</div>
@@ -253,141 +205,39 @@
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->
-
 	<!-- Start related-product Area -->
-	<section class="related-product-area section_gap_bottom">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-6 text-center">
-					<div class="section-title">
-						<h1>Deals of the Week</h1>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-							magna aliqua.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-9">
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r1.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r2.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r3.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r5.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r6.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r7.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r9.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r10.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="single-related-product d-flex">
-								<a  href="{{asset('#')}}"><img src="{{asset('img/r11.jpg')}}" alt=""></a>
-								<div class="desc">
-									<a  href="{{asset('#')}}" class="title">Black lace Heels</a>
-									<div class="price">
-										<h6>$189.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="ctg-right">
-						<a  href="{{asset('#')}}" target="_blank">
-							<img class="img-fluid d-block mx-auto" src="{{asset('img/category/c5.jpg')}}" alt="">
-						</a>
+	@if($dealOfWeeks != 'null')
+		@include('dealsOfWeek')
+	@endif
+    <!-- End related-product Area -->
+	<!-- User modal product add -->
+	<div class="modal fade" id="productAddUserModal" tabindex="-1" role="dialog" aria-labelledby="productAddUserModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5 ">
+					You add the product.<br>Would you like to continue viewing products or go to the shopping cart?.
+					<div class="modal-button mt-3">
+						<button type="button" class="primary-btn" data-dismiss="modal" aria-label="Close">Continue viewing </button>
+						<button type="button" class="primary-btn" onClick="redirectToCart()">Shopping cart</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	<!-- End related-product Area -->
+	</div>
+<!-- End user modal product add -->
+<!-- Guest modal product add -->
+<div class="modal fade" id="productAddGuestModal" tabindex="-1" role="dialog" aria-labelledby="productAddGuestModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content align-items-center">
+				<div class="modal-body text-center text-warning h5 ">
+					To add the product you should be autorized.<br>Would you like to continue viewing products or go to login?.
+					<div class="modal-button mt-3">
+						<button type="button" class="primary-btn" data-dismiss="modal" aria-label="Close">Continue viewing </button>
+						<button type="button" class="primary-btn" onClick="redirectToLogin()">Go to login/register</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- End guest modal product add -->
 @endsection('content')

@@ -1,6 +1,5 @@
-@extends ('welcome')
+@extends ('layouts.base')
 @section('content')
-
 
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -21,20 +20,20 @@
 	<section class="login_box_area section_gap">
 		<div class="container">
     		<div class="row">
-			   <div class="col-lg-6">
+			    <div class="col-lg-6">
 					<div class="login_box_img">
 						<img class="img-fluid" src="img/login.jpg" alt="">
 						<div class="hover">
 							<h4>New to our website?</h4>
 							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="primary-btn" href="{{ route('register') }}">Create an Account</a>
+							<a class="primary-btn" data-toggle="modal" data-target="#registerModal" style="color: #fff;">Create an Account</a>
 						</div>
 					</div>
 				</div>  
 				<div class="col-lg-6">
                		<div class="login_form_inner">
                 		<h3>Log in to enter</h3>
-                    	<form class="row login_form" method="POST" action="{{ route('login') }}">
+                    	<form class="login_form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                         
 								<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -88,5 +87,20 @@
     	</div>
 	</section>
   <!--================End Login Box Area =================-->
-  
+  <!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center p-0" id="registerModalLabel">REGISTRATION FORM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @include('auth.register')
+            </div>
+        </div>
+    </div>
+</div>
 @endsection('content')

@@ -2,7 +2,7 @@
     <div class="ui pagination menu">
     {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <a class="icon item disabled"> <i class="left chevron icon"></i>&laquo </a>
+            <a class="disable-button-pagin icon item dis-button"> <i class="left chevron icon"></i>&laquo </a>
         @else
             <a class="icon item" href="{{ $paginator->previousPageUrl() }}" rel="prev"> &laquo<i class="left chevron icon"></i> </a>
         @endif
@@ -13,7 +13,7 @@
             @foreach ($element as $page => $url)
                 <!--  Use three dots when current page is greater than 3.  -->
                 @if ($paginator->currentPage() > 3 && $page === 2)
-                    <a class="icon item disabled"><i class="icon item">...</i></a>
+                    <a class="disable-button-pagin item dis-button"><i class="icon item">...</i></a>
                 @endif
 
                 <!--  Show active page else show the first and last two pages from current page.  -->
@@ -25,7 +25,7 @@
 
                 <!--  Use three dots when current page is away from end.  -->
                 @if ($paginator->currentPage() < $paginator->lastPage() - 2 && $page === $paginator->lastPage() - 1)
-                    <a class="item disabled">...</a>
+                    <a class="disable-button-pagin item dis-button">...</a>
                 @endif
             @endforeach
         @endforeach 
@@ -34,7 +34,7 @@
         @if ($paginator->hasMorePages())
             <a class="icon item" href="{{ $paginator->nextPageUrl() }}" rel="next"> <i class="right chevron icon"></i>&raquo </a>
         @else
-            <a class="icon item disabled"> <i class="right chevron icon"></i>&raquo </a>
+            <a class="disable-button-pagin icon item dis-button"> <i class="right chevron icon"></i>&raquo </a>
         @endif
     </div>
 @endif
